@@ -5,7 +5,8 @@ import TheFooter from '@/components/TheFooter.vue';
 
 // Parallax and counter animations
 const handleScroll = () => {
-  const parallaxBg = document.querySelector('.parallax-bg');
+  // Modify your handleScroll function
+  const parallaxBg = document.querySelector('.hero-parallax img');
   const heroContent = document.querySelector('.hero-content');
   const cargoShip = document.querySelector('.cargo-ship');
   const airplane = document.querySelector('.airplane');
@@ -111,15 +112,20 @@ const testimonials = [
 
     <!-- Hero Section with Logistics Theme -->
     <section class="hero-parallax relative h-[90vh] min-h-[600px] overflow-hidden">
-      <!-- Animated Background with Transportation Elements -->
-      <div class="parallax-bg absolute inset-0 bg-gradient-to-br from-blue-900 to-gray-900">
-        <div class="absolute inset-0 opacity-20 bg-[url('https://example.com/cargo-pattern.png')]"></div>
+      <!-- Primary Background Image with Parallax -->
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <img src="@/assets/images/background.jpg" alt="Freight containers at port"
+          class="parallax-bg w-full h-full object-cover object-center" data-speed="0.5">
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
+      </div>
 
-        <!-- Animated Transportation Icons -->
-        <div class="cargo-ship absolute bottom-10 left-0 w-40 h-40 opacity-70 transition-transform duration-1000">
+      <!-- Animated Transportation Elements (now positioned relative to viewport) -->
+      <div class="absolute inset-0 z-1 pointer-events-none">
+        <div class="cargo-ship absolute bottom-10 left-0 w-40 h-40 opacity-70">
           <i class="fas fa-ship text-white text-6xl"></i>
         </div>
-        <div class="airplane absolute top-20 right-0 w-40 h-40 opacity-70 transition-transform duration-1000">
+        <div class="airplane absolute top-20 right-0 w-40 h-40 opacity-70">
           <i class="fas fa-plane text-white text-6xl"></i>
         </div>
       </div>
@@ -142,8 +148,8 @@ const testimonials = [
         <div class="flex flex-col sm:flex-row gap-6 animate-fade-in delay-300">
           <a href="#contact"
             class="relative overflow-hidden group bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg">
-            <span class="relative z-10 flex items-center">
-              Request Quote
+            <span class="relative z-1 flex items-center">
+              Contact Support
               <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
@@ -153,7 +159,7 @@ const testimonials = [
           </a>
           <a href="#services"
             class="relative overflow-hidden group border-2 border-white hover:border-blue-400 text-white font-bold px-10 py-4 rounded-full transition-all duration-300">
-            <span class="relative z-10 flex items-center">
+            <span class="relative z-1 flex items-center">
               Our Services
               <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
                 stroke="currentColor" viewBox="0 0 24 24">
@@ -165,7 +171,7 @@ const testimonials = [
       </div>
 
       <!-- Stats Bar -->
-      <div class="absolute bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm py-4">
+      <div class="absolute z-10 bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm py-4">
         <div class="container mx-auto grid grid-cols-3 md:grid-cols-4 gap-4 text-center">
           <div>
             <div class="text-2xl md:text-3xl font-bold text-blue-300 counter" data-target="24">0</div>
