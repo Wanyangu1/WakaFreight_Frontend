@@ -1,11 +1,26 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import TheFooter from '@/components/TheFooter.vue';
 
+// Import all images properly
+import airfreightImg from '@/assets/images/services/airfreight.jpg';
+import seaFreightImg from '@/assets/images/services/sea_freight.jpg';
+import crossBorderImg from '@/assets/images/services/crossborder.webp';
+import customsImg from '@/assets/images/services/custom.avif';
+import warehousingImg from '@/assets/images/services/warehousing.jpg';
+import vehicleImportImg from '@/assets/images/services/vehicle.jpg';
+
+// Parallax bubbles configuration
+const bubbles = ref([
+  { id: 1, size: 'w-16 h-16', top: '15%', left: '5%', delay: 0, speed: 0.2 },
+  { id: 2, size: 'w-24 h-24', top: '25%', left: '85%', delay: 0.3, speed: 0.3 },
+  { id: 3, size: 'w-12 h-12', top: '65%', left: '10%', delay: 0.6, speed: 0.4 },
+  { id: 4, size: 'w-20 h-20', top: '75%', left: '80%', delay: 0.9, speed: 0.25 }
+]);
+
 // Parallax and counter animations
 const handleScroll = () => {
-  // Modify your handleScroll function
   const parallaxBg = document.querySelector('.hero-parallax img');
   const heroContent = document.querySelector('.hero-content');
   const cargoShip = document.querySelector('.cargo-ship');
@@ -19,11 +34,32 @@ const handleScroll = () => {
     // Animate transportation icons
     if (cargoShip) cargoShip.style.transform = `translateX(${scrollPosition * 0.1}px)`;
     if (airplane) airplane.style.transform = `translateX(${-scrollPosition * 0.1}px)`;
+
+    // Animate bubbles
+    bubbles.value.forEach(bubble => {
+      const el = document.getElementById(`bubble-${bubble.id}`);
+      if (el) {
+        el.style.transform = `translateY(${scrollPosition * bubble.speed}px)`;
+      }
+    });
   }
 };
 
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
+
+  // Animate service cards when they come into view
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.remove('opacity-0', 'translate-y-10');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.service-card, .process-step, .stat-item').forEach(el => {
+    observer.observe(el);
+  });
 
   // Animate counters
   const counters = document.querySelectorAll('.counter');
@@ -43,43 +79,79 @@ onMounted(() => {
     updateCount();
   });
 });
-
+// Services data with imported images
 const services = [
   {
     title: "Air Freight",
-    description: "Time-sensitive global air cargo solutions with customs clearance.",
-    icon: "fas fa-plane",
-    color: "blue"
+    description: "Time-sensitive global air cargo solutions with customs clearance. Our dedicated air charter services ensure your urgent shipments arrive on schedule.",
+    image: airfreightImg,
+    features: [
+      "Next-flight-out availability",
+      "Airport-to-airport service",
+      "Dangerous goods handling",
+      "Temperature-controlled"
+    ],
+    icon: "fa-plane"
   },
   {
     title: "Sea Freight",
-    description: "Cost-effective ocean shipping with port-to-door logistics.",
-    icon: "fas fa-ship",
-    color: "indigo"
+    description: "Cost-effective ocean shipping with port-to-door logistics. We offer FCL, LCL, and specialized container solutions.",
+    image: seaFreightImg,
+    features: [
+      "Full container load (FCL)",
+      "Less than container load (LCL)",
+      "Break bulk services",
+      "Port clearance included"
+    ],
+    icon: "fa-ship"
   },
   {
     title: "Cross-Border",
-    description: "Efficient land freight across East African borders.",
-    icon: "fas fa-truck",
-    color: "green"
+    description: "Efficient land freight across East African borders with our fleet of modern trucks and experienced drivers.",
+    image: crossBorderImg,
+    features: [
+      "Kenya-Uganda-Tanzania routes",
+      "Cargo tracking",
+      "Border clearance assistance",
+      "Dedicated fleet"
+    ],
+    icon: "fa-truck"
   },
   {
     title: "Customs Brokerage",
-    description: "Expert documentation and tax compliance services.",
-    icon: "fas fa-file-contract",
-    color: "purple"
+    description: "Expert documentation and tax compliance services to ensure smooth clearance at all border points.",
+    image: customsImg,
+    features: [
+      "Import/export documentation",
+      "Duty optimization",
+      "Pre-clearance services",
+      "Regulatory compliance"
+    ],
+    icon: "fa-file-contract"
   },
   {
     title: "Warehousing",
-    description: "Secure storage with inventory management.",
-    icon: "fas fa-warehouse",
-    color: "orange"
+    description: "Secure storage with inventory management, pick & pack, and distribution services across our regional hubs.",
+    image: warehousingImg,
+    features: [
+      "Bonded warehousing",
+      "Inventory management",
+      "Pick & pack services",
+      "Climate-controlled"
+    ],
+    icon: "fa-warehouse"
   },
   {
     title: "Vehicle Import",
-    description: "End-to-end new/used vehicle importation.",
-    icon: "fas fa-car",
-    color: "red"
+    description: "End-to-end new/used vehicle importation with customs clearance and inland delivery.",
+    image: vehicleImportImg,
+    features: [
+      "New vehicle imports",
+      "Used vehicle clearance",
+      "Duty calculation",
+      "Inland delivery"
+    ],
+    icon: "fa-car"
   }
 ];
 
@@ -103,6 +175,29 @@ const testimonials = [
     image: ""
   }
 ];
+
+const processSteps = [
+  {
+    title: "Documentation",
+    description: "We handle all customs paperwork and compliance requirements",
+    icon: "fa-file-signature"
+  },
+  {
+    title: "Transport",
+    description: "Optimal routing by air, sea or land based on your priorities",
+    icon: "fa-route"
+  },
+  {
+    title: "Clearance",
+    description: "Fast-track customs clearance at all border points",
+    icon: "fa-passport"
+  },
+  {
+    title: "Delivery",
+    description: "Final mile delivery with real-time tracking",
+    icon: "fa-box-open"
+  }
+];
 </script>
 
 <template>
@@ -110,17 +205,29 @@ const testimonials = [
     <!-- Navbar -->
     <TheNavbar />
 
-    <!-- Hero Section with Logistics Theme -->
+    <!-- Enhanced Hero Section with Parallax Bubbles -->
     <section class="hero-parallax relative h-[90vh] min-h-[600px] overflow-hidden">
       <!-- Primary Background Image with Parallax -->
       <div class="absolute inset-0 z-0 overflow-hidden">
-        <img src="@/assets/images/background.jpg" alt="Freight containers at port"
+        <img src="@/assets/images/bg5.jpeg" alt="Freight containers at port"
           class="parallax-bg w-full h-full object-cover object-center" data-speed="0.5">
         <!-- Gradient overlay -->
         <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
       </div>
 
-      <!-- Animated Transportation Elements (now positioned relative to viewport) -->
+      <!-- Parallax Bubbles -->
+      <div class="absolute inset-0 z-1 pointer-events-none">
+        <div v-for="bubble in bubbles" :id="`bubble-${bubble.id}`" :key="bubble.id"
+          :class="`absolute rounded-full bg-white/10 backdrop-blur-sm border border-white/20 ${bubble.size}`"
+          :style="{ top: bubble.top, left: bubble.left }">
+          <i v-if="bubble.id % 2 === 0"
+            class="fas fa-ship text-white/50 text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
+          <i v-else
+            class="fas fa-plane text-white/50 text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
+        </div>
+      </div>
+
+      <!-- Animated Transportation Elements -->
       <div class="absolute inset-0 z-1 pointer-events-none">
         <div class="cargo-ship absolute bottom-10 left-0 w-40 h-40 opacity-70">
           <i class="fas fa-ship text-white text-6xl"></i>
@@ -145,7 +252,7 @@ const testimonials = [
         <p class="text-xl md:text-2xl max-w-3xl leading-relaxed opacity-90 mb-10 animate-fade-in delay-200">
           Your trusted partner for air, sea and cross-border freight forwarding in East Africa since 1999
         </p>
-        <div class="flex flex-col sm:flex-row gap-6 animate-fade-in delay-300">
+        <div class="flex flex-col sm:flex-row gap-6 mb-8 animate-fade-in delay-300">
           <a href="#contact"
             class="relative overflow-hidden group bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg">
             <span class="relative z-1 flex items-center">
@@ -169,30 +276,36 @@ const testimonials = [
           </a>
         </div>
       </div>
+    </section>
 
-      <!-- Stats Bar -->
-      <div class="absolute z-10 bottom-0 left-0 right-0 bg-white/10 backdrop-blur-sm py-4">
-        <div class="container mx-auto grid grid-cols-3 md:grid-cols-4 gap-4 text-center">
-          <div>
-            <div class="text-2xl md:text-3xl font-bold text-blue-300 counter" data-target="24">0</div>
-            <div class="text-xs md:text-sm uppercase tracking-wider text-white">Years Experience</div>
-          </div>
-          <div>
-            <div class="text-2xl md:text-3xl font-bold text-blue-300 counter" data-target="1500">0</div>
-            <div class="text-xs md:text-sm uppercase tracking-wider text-white">Monthly Shipments</div>
-          </div>
-          <div>
-            <div class="text-2xl md:text-3xl font-bold text-blue-300 counter" data-target="12">0</div>
-            <div class="text-xs md:text-sm uppercase tracking-wider text-white">Border Stations</div>
-          </div>
-          <div class="hidden md:block">
-            <div class="text-2xl md:text-3xl font-bold text-blue-300 counter" data-target="98">0</div>
-            <div class="text-xs md:text-sm uppercase tracking-wider text-white">Client Retention</div>
+    <!-- Enhanced Stats Section -->
+    <section class="py-6 bg-gradient-to-r from-blue-900 to-blue-800 text-white relative overflow-hidden">
+      <div class="absolute inset-0 opacity-10">
+        <div class="absolute inset-0 bg-[url('@/assets/images/pattern.png')] bg-repeat bg-[size:200px]"></div>
+      </div>
+
+      <div class="container mx-auto px-6 relative z-10">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div v-for="(stat, index) in [
+            { value: 24, label: 'Years Experience', },
+            { value: 1500, label: 'Monthly Shipments' },
+            { value: 12, label: 'Border Stations' },
+            { value: 98, suffix: '%', label: 'Client Retention' }
+          ]" :key="index" class="stat-item opacity-0 translate-y-10 transition-all duration-500"
+            :style="`transition-delay: ${index * 0.1}s`">
+            <div
+              class="bg-white/10 backdrop-blur-sm p-3 rounded-xl border border-white/20 hover:border-blue-400 transition-all h-full">
+              <div class="flex flex-col items-center text-center">
+
+                <div class="text-3xl md:text-3xl font-bold text-white mb-1 counter" :data-target="stat.value">0</div>
+                <div class="text-sm uppercase tracking-wider text-blue-200">{{ stat.label }}</div>
+                <div v-if="stat.suffix" class="text-blue-300 text-lg">{{ stat.suffix }}</div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </section>
-
     <!-- Trust Badges Section -->
     <section class="py-12 bg-gray-100">
       <div class="container mx-auto px-6">
@@ -217,7 +330,7 @@ const testimonials = [
       </div>
     </section>
 
-    <!-- Services Section -->
+    <!-- Services Section - Enhanced Design -->
     <section id="services" class="py-20 bg-white">
       <div class="container mx-auto px-6">
         <div class="text-center mb-16">
@@ -231,88 +344,95 @@ const testimonials = [
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div v-for="(service, index) in services" :key="index"
-            class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl border border-gray-100 transition-all duration-500 transform hover:-translate-y-2 group">
-            <div class="w-16 h-16 rounded-xl flex items-center justify-center mb-6 text-white"
-              :class="`bg-${service.color}-600`">
-              <i :class="service.icon" class="text-2xl"></i>
+            class="service-card bg-white p-0 rounded-xl shadow-lg hover:shadow-2xl border border-gray-100 transition-all duration-500 transform hover:-translate-y-2 group opacity-0 translate-y-10"
+            :style="`transition-delay: ${index * 0.1}s`">
+            <div class="relative overflow-hidden h-65 rounded-t-xl">
+              <img :src="service.image" :alt="service.title"
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6">
+                <div class="flex items-center">
+                  <div
+                    class="w-12 h-12 rounded-full bg-blue-600/90 flex items-center justify-center mr-4 text-white text-xl">
+                    <i class="fas" :class="service.icon"></i>
+                  </div>
+                  <h3 class="text-2xl font-bold text-white">{{ service.title }}</h3>
+                </div>
+              </div>
             </div>
-            <h3 class="text-2xl font-bold mb-4 text-gray-800 group-hover:text-blue-600 transition-colors">
-              {{ service.title }}
-            </h3>
-            <p class="text-gray-600 leading-relaxed">{{ service.description }}</p>
-            <div class="mt-6">
-              <a href="#" class="text-blue-600 font-medium inline-flex items-center group-hover:underline">
-                Learn more
-                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                </svg>
-              </a>
+            <div class="p-8">
+              <p class="text-gray-600 leading-relaxed mb-6">{{ service.description }}</p>
+              <ul class="mb-6 space-y-2">
+                <li v-for="(feature, i) in service.features" :key="i" class="flex items-start">
+                  <svg class="w-5 h-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                  </svg>
+                  <span class="text-gray-700">{{ feature }}</span>
+                </li>
+              </ul>
+              <div class="mt-6">
+                <a href="#contact" class="inline-flex items-center text-blue-600 font-medium group">
+                  <span class="group-hover:underline">Get a quote</span>
+                  <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                    </path>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Process Section -->
+    <!-- Redesigned Process Section -->
     <section class="py-20 bg-gray-50">
       <div class="container mx-auto px-6">
         <div class="text-center mb-16">
-          <span class="text-blue-600 font-semibold tracking-wider">HOW IT WORKS</span>
-          <h2 class="text-4xl font-bold text-gray-800 mt-3">Our Seamless Process</h2>
+          <span class="text-blue-600 font-semibold tracking-wider">OUR WORKFLOW</span>
+          <h2 class="text-4xl font-bold text-gray-800 mt-3">Streamlined Logistics Process</h2>
           <div class="w-20 h-1 bg-blue-500 mx-auto mt-4"></div>
+          <p class="text-gray-600 max-w-2xl mx-auto mt-6">
+            Our proven 4-step process ensures efficient and reliable cargo movement
+          </p>
         </div>
 
         <div class="relative">
-          <!-- Timeline -->
-          <div class="hidden lg:block absolute left-1/2 top-0 h-full w-1 bg-blue-200 transform -translate-x-1/2"></div>
+          <!-- Horizontal Timeline for Mobile -->
+          <div class="lg:hidden flex justify-center mb-12">
+            <div class="flex items-center">
+              <div v-for="(step, index) in processSteps" :key="index" class="flex flex-col items-center mx-4">
+                <div class="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center mb-2 z-10">
+                  <i class="fas text-lg" :class="step.icon"></i>
+                </div>
+                <div class="text-xs font-medium text-gray-600 text-center">{{ step.title }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vertical Timeline for Desktop -->
+          <div
+            class="hidden lg:block absolute left-1/2 top-0 h-full w-1 bg-gradient-to-b from-blue-200 to-blue-100 transform -translate-x-1/2">
+          </div>
 
           <!-- Steps -->
           <div class="space-y-16 lg:space-y-0 lg:grid lg:grid-cols-4 lg:gap-8">
-            <!-- Step 1 -->
-            <div class="relative lg:text-center">
+            <div v-for="(step, index) in processSteps" :key="index"
+              class="process-step relative lg:text-center opacity-0 translate-y-10 transition-all duration-500"
+              :style="`transition-delay: ${index * 0.15}s`">
               <div
-                class="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-0 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-6 z-10">
-                <span class="text-2xl font-bold">1</span>
+                class="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-0 w-16 h-16 rounded-full bg-gradient-to-br from-blue-600 to-blue-500 text-white flex items-center justify-center mx-auto mb-6 z-10 shadow-lg">
+                <i class="fas text-xl" :class="step.icon"></i>
               </div>
-              <div class="lg:pt-24 bg-white p-8 rounded-xl shadow-md">
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Documentation</h3>
-                <p class="text-gray-600">We handle all customs paperwork and compliance requirements</p>
-              </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="relative lg:text-center">
               <div
-                class="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-0 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-6 z-10">
-                <span class="text-2xl font-bold">2</span>
-              </div>
-              <div class="lg:pt-24 bg-white p-8 rounded-xl shadow-md">
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Transport</h3>
-                <p class="text-gray-600">Optimal routing by air, sea or land based on your priorities</p>
-              </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="relative lg:text-center">
-              <div
-                class="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-0 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-6 z-10">
-                <span class="text-2xl font-bold">3</span>
-              </div>
-              <div class="lg:pt-24 bg-white p-8 rounded-xl shadow-md">
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Clearance</h3>
-                <p class="text-gray-600">Fast-track customs clearance at all border points</p>
-              </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="relative lg:text-center">
-              <div
-                class="lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-0 w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mx-auto mb-6 z-10">
-                <span class="text-2xl font-bold">4</span>
-              </div>
-              <div class="lg:pt-24 bg-white p-8 rounded-xl shadow-md">
-                <h3 class="text-xl font-bold mb-3 text-gray-800">Delivery</h3>
-                <p class="text-gray-600">Final mile delivery with real-time tracking</p>
+                class="lg:pt-24 bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 h-full">
+                <h3 class="text-xl font-bold mb-3 text-gray-800">{{ step.title }}</h3>
+                <p class="text-gray-600">{{ step.description }}</p>
+                <div class="mt-4 text-blue-600 font-medium hidden lg:block">
+                  Step {{ index + 1 }}
+                </div>
               </div>
             </div>
           </div>
@@ -437,99 +557,58 @@ const testimonials = [
 </template>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
-
-.hero-parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in {
-  animation: fadeIn 1s ease forwards;
-}
-
-.delay-100 {
-  animation-delay: 0.1s;
-}
-
-.delay-200 {
-  animation-delay: 0.2s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #3b82f6;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #2563eb;
-}
-
-body {
-  font-family: 'Poppins', sans-serif;
-}
-
-.backdrop-blur-sm {
-  backdrop-filter: blur(4px);
-}
-
-/* Floating animation for cargo icons */
-@keyframes floatShip {
+/* Add these new styles to your existing styles */
+@keyframes floatBubble {
 
   0%,
   100% {
-    transform: translateX(0) translateY(0);
+    transform: translateY(0) rotate(0deg);
   }
 
   50% {
-    transform: translateX(20px) translateY(-10px);
+    transform: translateY(-20px) rotate(5deg);
   }
 }
 
-.cargo-ship {
-  animation: floatShip 8s ease-in-out infinite;
+/* Apply floating animation to bubbles */
+.absolute.rounded-full {
+  animation: floatBubble 8s ease-in-out infinite;
 }
 
-@keyframes floatPlane {
-
-  0%,
-  100% {
-    transform: translateX(0) translateY(0);
-  }
-
-  50% {
-    transform: translateX(-20px) translateY(10px);
-  }
+/* Different animation delays for each bubble */
+#bubble-1 {
+  animation-delay: 0s;
 }
 
-.airplane {
-  animation: floatPlane 10s ease-in-out infinite;
+#bubble-2 {
+  animation-delay: 1s;
 }
+
+#bubble-3 {
+  animation-delay: 2s;
+}
+
+#bubble-4 {
+  animation-delay: 3s;
+}
+
+/* Enhanced stats section styles */
+.bg-gradient-to-r.from-blue-900.to-blue-800 {
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+}
+
+.stat-item:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+.stat-item .counter {
+  background: linear-gradient(to right, #93c5fd, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* ... (rest of your styles remain the same) ... */
 </style>

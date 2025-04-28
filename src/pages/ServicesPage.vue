@@ -29,7 +29,7 @@ const services = [
       'Dedicated air cargo specialists',
       'Handling of special cargo (perishables, valuables)'
     ],
-    image: '/images/services/air-freight.jpg'
+    image: 'https://images.unsplash.com/photo-1556388158-158ea5ccacbd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
   },
   {
     id: 'sea-freight',
@@ -53,7 +53,7 @@ const services = [
       'Cargo insurance options',
       'Hazardous materials handling'
     ],
-    image: '/images/services/sea-freight.jpg'
+    image: 'https://images.unsplash.com/photo-1600679472829-3044539ce8ed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
   },
   {
     id: 'cross-border',
@@ -77,7 +77,7 @@ const services = [
       'Cargo tracking technology',
       'Regional regulatory expertise'
     ],
-    image: '/images/services/cross-border.jpg'
+    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80'
   },
   {
     id: 'customs',
@@ -101,7 +101,7 @@ const services = [
       'Duty optimization strategies',
       'Regular compliance audits'
     ],
-    image: '/images/services/customs-clearance.jpg'
+    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
   },
   {
     id: 'warehousing',
@@ -125,7 +125,7 @@ const services = [
       'Flexible storage terms',
       'Integrated transportation'
     ],
-    image: '/images/services/warehousing.jpg'
+    image: 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2076&q=80'
   },
   {
     id: 'vehicle',
@@ -149,7 +149,7 @@ const services = [
       'Damage inspection on arrival',
       'Registration processing'
     ],
-    image: '/images/services/vehicle-import.jpg'
+    image: 'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2078&q=80'
   }
 ];
 
@@ -160,52 +160,91 @@ const toggleService = (serviceId) => {
 
 <template>
   <TheNavbar />
-  <!-- Hero Section -->
-  <section class="relative bg-gradient-to-r from-blue-900 to-blue-800 text-white py-24 md:py-32">
-    <div class="absolute inset-0 bg-black/40 z-0"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+  <!-- Hero Section with Parallax Effect -->
+  <section class="relative h-[500px] flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 bg-black/0 z-0">
+      <img src="@/assets/images/services/bg6.jpg" alt="Cargo plane loading"
+        class="w-full h-full object-cover object-center animate-scale-slow">
+      <!-- Gradient overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/60"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
       <div class="text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-6">Our Logistics Services</h1>
-        <div class="w-24 h-1 bg-blue-400 mx-auto mb-8"></div>
-        <p class="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
+        <h1 class="text-4xl md:text-6xl font-bold mb-6 text-white drop-shadow-lg">Our Logistics Services</h1>
+        <div class="w-24 h-1.5 bg-blue-400 mx-auto mb-8"></div>
+        <p class="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed font-medium">
           Comprehensive freight solutions tailored to your supply chain requirements
         </p>
+        <a href="#services"
+          class="mt-10 inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transition-all hover:scale-105">
+          <i class="fas fa-arrow-down mr-2"></i> Explore Services
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Services Grid -->
-  <section class="py-16 md:py-24 bg-white">
+  <!-- Stats Bar -->
+  <div class="bg-blue-900 text-white py-8">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-bold mb-2">10+</div>
+          <div class="text-blue-200 uppercase text-sm font-medium">Countries Served</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-bold mb-2">24/7</div>
+          <div class="text-blue-200 uppercase text-sm font-medium">Customer Support</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-bold mb-2">98%</div>
+          <div class="text-blue-200 uppercase text-sm font-medium">On-Time Delivery</div>
+        </div>
+        <div class="p-4">
+          <div class="text-3xl md:text-4xl font-bold mb-2">500+</div>
+          <div class="text-blue-200 uppercase text-sm font-medium">Monthly Shipments</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Services Grid -->
+  <section id="services" class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Comprehensive Services</h2>
+        <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">
+          We offer end-to-end logistics solutions to meet all your freight and supply chain needs
+        </p>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="service in services" :key="service.id"
-          class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all"
-          :class="{ 'ring-2 ring-blue-500': activeService === service.id }">
+          class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 group"
+          :class="{ 'ring-2 ring-blue-500 shadow-lg': activeService === service.id }">
+
           <!-- Service Header -->
-          <div class="bg-blue-600 px-6 py-4 text-white cursor-pointer" @click="toggleService(service.id)">
-            <div class="flex items-center justify-between">
-              <div class="flex items-center">
-                <div class="w-12 h-12 rounded-lg bg-blue-500 flex items-center justify-center mr-4">
+          <div class="relative h-48 overflow-hidden cursor-pointer" @click="toggleService(service.id)">
+            <img :src="service.image" :alt="service.title"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-black/30 flex items-end p-6">
+              <div>
+                <div class="w-12 h-12 rounded-lg bg-blue-600 flex items-center justify-center mb-3">
                   <i :class="`${service.icon} text-white text-xl`"></i>
                 </div>
-                <h3 class="text-xl font-bold">{{ service.title }}</h3>
+                <h3 class="text-xl font-bold text-white">{{ service.title }}</h3>
+                <p class="mt-1 text-blue-100">{{ service.summary }}</p>
               </div>
-              <i :class="`fas fa-chevron-${activeService === service.id ? 'up' : 'down'} transition-transform`"></i>
             </div>
-            <p class="mt-2 text-blue-100">{{ service.summary }}</p>
           </div>
 
           <!-- Collapsible Content -->
-          <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 max-h-0"
-            enter-to-class="opacity-100 max-h-screen" leave-active-class="transition ease-in duration-150"
-            leave-from-class="opacity-100 max-h-screen" leave-to-class="opacity-0 max-h-0">
+          <transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 max-h-0"
+            enter-to-class="opacity-100 max-h-[1000px]" leave-active-class="transition ease-in duration-200"
+            leave-from-class="opacity-100 max-h-[1000px]" leave-to-class="opacity-0 max-h-0">
             <div v-show="activeService === service.id" class="overflow-hidden">
               <div class="p-6">
-                <!-- Service Image -->
-                <div class="rounded-lg overflow-hidden mb-6" style="aspect-ratio: 16/9;">
-                  <img :src="service.image" :alt="service.title" class="w-full h-full object-cover">
-                </div>
-
                 <!-- Service Description -->
                 <div class="prose max-w-none text-gray-600 mb-6" v-html="service.description"></div>
 
@@ -215,7 +254,7 @@ const toggleService = (serviceId) => {
                   <ul class="space-y-2">
                     <li v-for="(feature, index) in service.features" :key="index" class="flex items-start">
                       <i class="fas fa-check-circle text-blue-500 mt-1 mr-2"></i>
-                      <span>{{ feature }}</span>
+                      <span class="text-gray-700">{{ feature }}</span>
                     </li>
                   </ul>
                 </div>
@@ -223,7 +262,7 @@ const toggleService = (serviceId) => {
                 <!-- CTA Button -->
                 <div class="mt-6">
                   <a href="/contact"
-                    class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors">
+                    class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-3 px-6 rounded-lg transition-all shadow-md hover:shadow-lg">
                     <i class="fas fa-envelope mr-2"></i> Inquire About This Service
                   </a>
                 </div>
@@ -236,16 +275,25 @@ const toggleService = (serviceId) => {
   </section>
 
   <!-- Why Choose Us -->
-  <section class="py-16 md:py-24 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="py-16 md:py-24 bg-gray-50 relative">
+    <div class="absolute inset-0 overflow-hidden">
+      <img
+        src="https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+        alt="Warehouse background" class="w-full h-full object-cover opacity-10">
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="text-center mb-16">
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Why Choose WakaFreight?</h2>
         <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+        <p class="mt-6 text-lg text-gray-600 max-w-3xl mx-auto">
+          We go beyond standard logistics to deliver exceptional value and service
+        </p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600">
+        <div
+          class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-2 border border-gray-100">
+          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 text-white">
             <i class="fas fa-shield-alt text-2xl"></i>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Licensed & Certified</h3>
@@ -254,8 +302,9 @@ const toggleService = (serviceId) => {
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600">
+        <div
+          class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-2 border border-gray-100">
+          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 text-white">
             <i class="fas fa-network-wired text-2xl"></i>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">East Africa Network</h3>
@@ -264,8 +313,9 @@ const toggleService = (serviceId) => {
           </p>
         </div>
 
-        <div class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-          <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600">
+        <div
+          class="bg-white p-8 rounded-xl shadow-md hover:shadow-lg transition-all hover:-translate-y-2 border border-gray-100">
+          <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6 text-white">
             <i class="fas fa-headset text-2xl"></i>
           </div>
           <h3 class="text-xl font-bold text-gray-900 mb-3">Dedicated Support</h3>
@@ -277,29 +327,128 @@ const toggleService = (serviceId) => {
     </div>
   </section>
 
+  <!-- Testimonials -->
+  <section class="py-16 md:py-24 bg-blue-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
+        <div class="w-20 h-1 bg-blue-400 mx-auto"></div>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm border border-white/20">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+              <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Client testimonial"
+                class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h4 class="font-bold">Sarah K.</h4>
+              <p class="text-blue-200 text-sm">Manufacturing Company</p>
+            </div>
+          </div>
+          <p class="italic">"WakaFreight transformed our supply chain. Their customs clearance team saved us thousands
+            in duty payments through proper classification."</p>
+          <div class="flex mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm border border-white/20">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client testimonial"
+                class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h4 class="font-bold">James M.</h4>
+              <p class="text-blue-200 text-sm">Automotive Importer</p>
+            </div>
+          </div>
+          <p class="italic">"Their vehicle importation service is unmatched. From sourcing in Japan to registration in
+            Kenya, they handle everything seamlessly."</p>
+          <div class="flex mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+
+        <div class="bg-white/10 p-8 rounded-xl backdrop-blur-sm border border-white/20">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client testimonial"
+                class="w-full h-full object-cover">
+            </div>
+            <div>
+              <h4 class="font-bold">Amina W.</h4>
+              <p class="text-blue-200 text-sm">Pharmaceutical Distributor</p>
+            </div>
+          </div>
+          <p class="italic">"The temperature-controlled air freight service ensures our vaccines arrive in perfect
+            condition every time. Reliable and professional."</p>
+          <div class="flex mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- CTA Section -->
-  <section class="py-16 md:py-24 bg-gradient-to-r from-blue-800 to-blue-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <section class="relative py-16 md:py-32 text-white overflow-hidden">
+    <div class="absolute inset-0 bg-black/60 z-0">
+      <img src="@/assets/images/services/bg6.jpg" alt="Truck on highway" class="w-full h-full object-cover">
+      <!-- Gradient overlay -->
+      <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/60"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
       <h2 class="text-3xl md:text-4xl font-bold mb-6">Need a Custom Logistics Solution?</h2>
       <p class="text-xl text-blue-200 max-w-3xl mx-auto mb-8">
         Our experts will design a tailored freight program for your specific requirements.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
         <a href="/contact"
-          class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors">
+          class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-all hover:scale-105">
           <i class="fas fa-phone-alt mr-2"></i> Speak to Our Team
         </a>
         <a href="/quote"
-          class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-8 rounded-lg transition-colors">
+          class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-8 rounded-lg transition-all hover:scale-105">
           <i class="fas fa-calculator mr-2"></i> Get Instant Quote
         </a>
       </div>
     </div>
   </section>
+
   <TheFooter />
 </template>
 
 <style scoped>
+/* Custom animations */
+.animate-scale-slow {
+  animation: scale 20s linear infinite alternate;
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.1);
+  }
+}
+
 /* Smooth transitions for service cards */
 .service-card {
   transition: all 0.3s ease;

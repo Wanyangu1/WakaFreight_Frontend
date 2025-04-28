@@ -14,14 +14,19 @@ const topBarLinks = [
     badge: 'Live'
   },
   {
-    name: 'Customer Portal',
-    icon: 'fas fa-user-lock',
-    path: '/login',
+    name: 'Customer Support',
+    icon: 'fas fa-user',
+    path: '/',
     badge: 'Secure'
   }
 ];
 
 const navLinks = [
+  {
+    name: 'About Us',
+    path: '/about',
+    icon: 'fas fa-building'
+  },
   {
     name: 'Services',
     path: '/services',
@@ -65,14 +70,9 @@ const navLinks = [
     ]
   },
   {
-    name: 'About Us',
-    path: '/about',
-    icon: 'fas fa-building'
-  },
-  {
-    name: 'Network',
-    path: '/network',
-    icon: 'fas fa-globe-africa'
+    name: 'Our Clients',
+    path: '/clients',
+    icon: 'fas fa-users'
   },
 ];
 
@@ -187,7 +187,7 @@ onUnmounted(() => {
               <h1 class="text-2xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors font-serif">
                 WakaFreight
               </h1>
-              <p class="text-xs text-gray-500 -mt-1 tracking-wider">GLOBAL LOGISTICS NETWORK</p>
+              <p class="text-xs text-gray-500 -mt-1 tracking-wider">FORWADERS LIMITED</p>
             </div>
           </a>
         </div>
