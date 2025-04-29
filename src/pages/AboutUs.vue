@@ -4,7 +4,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
-import ceo from '@/assets/images/team/Derrick.jpeg'
+import ceo from '@/assets/images/team/Julius.jpg'
+import md from '@/assets/images/team/person.jpg'
+import manager from '@/assets/images/team/Derrick1.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -66,13 +68,13 @@ const leadership = [
     name: 'Sarah Kamau',
     position: 'Operations Director',
     bio: 'Specializes in customs regulations and cross-border logistics with 15 years experience.',
-    image: ceo
+    image: md
   },
   {
     name: 'Derrick John',
     position: 'Manager',
     bio: 'Financial strategist ensuring cost-effective solutions for our clients.',
-    image: ceo
+    image: manager
   }
 ]
 

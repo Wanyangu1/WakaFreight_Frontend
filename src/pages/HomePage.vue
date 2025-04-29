@@ -1,8 +1,136 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onUnmounted } from 'vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import TheFooter from '@/components/TheFooter.vue';
+// Import hero images
+import hero1 from '@/assets/images/bg5.jpeg';
+import hero2 from '@/assets/images/services/airfreight.jpg';
+import hero3 from '@/assets/images/services/sea_freight.jpg';
+import hero4 from '@/assets/images/services/warehousing.jpg';
 
+const currentSlide = ref(0);
+const isTransitioning = ref(false);
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+
+const heroSlides = [
+  {
+    image: hero1,
+    title: "Borderless Trade Simplified",
+    subtitle: "Your trusted partner for air, sea and cross-border freight forwarding in East Africa since 1999",
+    cta1: "Contact Support",
+    cta2: "Our Services"
+  },
+  {
+    image: hero2,
+    title: "Air Freight Solutions",
+    subtitle: "Time-sensitive global air cargo with customs clearance and dedicated air charter services",
+    cta1: "Get Air Quote",
+    cta2: "Learn More"
+  },
+  {
+    image: hero3,
+    title: "Ocean Freight Expertise",
+    subtitle: "Cost-effective sea shipping with port-to-door logistics and container solutions",
+    cta1: "Sea Freight Rates",
+    cta2: "View Services"
+  },
+  {
+    image: hero4,
+    title: "Warehousing & Distribution",
+    subtitle: "Secure storage with inventory management across our regional hubs",
+    cta1: "Storage Solutions",
+    cta2: "Contact Us"
+  }
+];
+
+// Auto-rotate carousel
+let interval;
+const startCarousel = () => {
+  interval = setInterval(() => {
+    nextSlide();
+  }, 9000);
+};
+
+const stopCarousel = () => {
+  clearInterval(interval);
+};
+
+const nextSlide = () => {
+  if (isTransitioning.value) return;
+  isTransitioning.value = true;
+  currentSlide.value = (currentSlide.value + 1) % heroSlides.length;
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 1000);
+};
+
+const prevSlide = () => {
+  if (isTransitioning.value) return;
+  isTransitioning.value = true;
+  currentSlide.value = (currentSlide.value - 1 + heroSlides.length) % heroSlides.length;
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 1000);
+};
+
+const goToSlide = (index) => {
+  if (isTransitioning.value || currentSlide.value === index) return;
+  isTransitioning.value = true;
+  currentSlide.value = index;
+  setTimeout(() => {
+    isTransitioning.value = false;
+  }, 1000);
+};
+
+// Touch events for mobile swipe
+const handleTouchStart = (e) => {
+  touchStartX.value = e.changedTouches[0].screenX;
+  stopCarousel();
+};
+
+const handleTouchEnd = (e) => {
+  touchEndX.value = e.changedTouches[0].screenX;
+  handleSwipe();
+  startCarousel();
+};
+
+const handleSwipe = () => {
+  if (touchEndX.value < touchStartX.value - 50) {
+    nextSlide();
+  }
+  if (touchEndX.value > touchStartX.value + 50) {
+    prevSlide();
+  }
+};
+
+// Pause on hover
+const pauseCarousel = () => {
+  stopCarousel();
+};
+
+const resumeCarousel = () => {
+  startCarousel();
+};
+
+onMounted(() => {
+  startCarousel();
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onUnmounted(() => {
+  stopCarousel();
+  window.removeEventListener('keydown', handleKeyDown);
+});
+
+// Keyboard navigation
+const handleKeyDown = (e) => {
+  if (e.key === 'ArrowLeft') {
+    prevSlide();
+  } else if (e.key === 'ArrowRight') {
+    nextSlide();
+  }
+};
 // Import all images properly
 import airfreightImg from '@/assets/images/services/airfreight.jpg';
 import seaFreightImg from '@/assets/images/services/sea_freight.jpg';
@@ -205,76 +333,121 @@ const processSteps = [
     <!-- Navbar -->
     <TheNavbar />
 
-    <!-- Enhanced Hero Section with Parallax Bubbles -->
-    <section class="hero-parallax relative h-[90vh] min-h-[600px] overflow-hidden">
-      <!-- Primary Background Image with Parallax -->
-      <div class="absolute inset-0 z-0 overflow-hidden">
-        <img src="@/assets/images/bg5.jpeg" alt="Freight containers at port"
-          class="parallax-bg w-full h-full object-cover object-center" data-speed="0.5">
-        <!-- Gradient overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
+    <!-- Enhanced Hero Carousel -->
+    <section class="relative h-[90vh] min-h-[600px] overflow-hidden" @mouseenter="pauseCarousel"
+      @mouseleave="resumeCarousel" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
+      <!-- Slides -->
+      <div class="relative h-full w-full">
+        <div v-for="(slide, index) in heroSlides" :key="index"
+          class="absolute inset-0 transition-opacity duration-1000 ease-[cubic-bezier(0.65,0,0.35,1)]" :class="{
+            'opacity-100 z-10': currentSlide === index,
+            'opacity-0 z-0': currentSlide !== index
+          }">
+          <!-- Background Image with Parallax -->
+          <div class="absolute inset-0 z-0 overflow-hidden">
+            <img :src="slide.image" :alt="slide.title"
+              class="w-full h-full object-cover object-center transition-transform duration-[8000ms] ease-out" :class="{
+                'scale-110': currentSlide === index,
+                'scale-100': currentSlide !== index
+              }">
+            <!-- Gradient overlay -->
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
+          </div>
+
+          <!-- Content -->
+          <div class="relative z-10 h-full flex flex-col justify-center px-6 md:px-16 lg:px-24 text-white">
+            <div class="mb-6 transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] delay-100" :class="{
+              'opacity-100 translate-y-0': currentSlide === index,
+              'opacity-0 translate-y-4': currentSlide !== index
+            }">
+              <span
+                class="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full text-blue-300 font-medium text-sm tracking-wider">
+                GLOBAL LOGISTICS SOLUTIONS
+              </span>
+            </div>
+            <h1
+              class="text-5xl md:text-7xl font-bold mb-6 leading-tight transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] delay-200"
+              :class="{
+                'opacity-100 translate-y-0': currentSlide === index,
+                'opacity-0 translate-y-4': currentSlide !== index
+              }">
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+                {{ slide.title.split(' ')[0] }}
+              </span>
+              {{ slide.title.split(' ').slice(1).join(' ') }}
+            </h1>
+            <p class="text-xl md:text-2xl max-w-3xl leading-relaxed opacity-90 mb-10 transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] delay-300"
+              :class="{
+                'opacity-100 translate-y-0': currentSlide === index,
+                'opacity-0 translate-y-4': currentSlide !== index
+              }">
+              {{ slide.subtitle }}
+            </p>
+            <div
+              class="flex flex-col sm:flex-row gap-6 mb-8 transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] delay-500"
+              :class="{
+                'opacity-100 translate-y-0': currentSlide === index,
+                'opacity-0 translate-y-4': currentSlide !== index
+              }">
+              <a href="#contact"
+                class="relative overflow-hidden group bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
+                <span class="relative z-1 flex items-center">
+                  {{ slide.cta1 }}
+                  <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
+                    </path>
+                  </svg>
+                </span>
+              </a>
+              <a href="#services"
+                class="relative overflow-hidden group border-2 border-white hover:border-blue-400 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 hover:bg-white/10">
+                <span class="relative z-1 flex items-center">
+                  {{ slide.cta2 }}
+                  <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
+                    stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                  </svg>
+                </span>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Parallax Bubbles -->
-      <div class="absolute inset-0 z-1 pointer-events-none">
-        <div v-for="bubble in bubbles" :id="`bubble-${bubble.id}`" :key="bubble.id"
-          :class="`absolute rounded-full bg-white/10 backdrop-blur-sm border border-white/20 ${bubble.size}`"
-          :style="{ top: bubble.top, left: bubble.left }">
-          <i v-if="bubble.id % 2 === 0"
-            class="fas fa-ship text-white/50 text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
-          <i v-else
-            class="fas fa-plane text-white/50 text-xl absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"></i>
-        </div>
+      <!-- Navigation Arrows -->
+      <button @click="prevSlide"
+        class="absolute left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group"
+        aria-label="Previous slide">
+        <svg class="w-6 h-6 transition-transform duration-300 group-hover:scale-125" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+      <button @click="nextSlide"
+        class="absolute right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all duration-300 group"
+        aria-label="Next slide">
+        <svg class="w-6 h-6 transition-transform duration-300 group-hover:scale-125" fill="none" stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+
+      <!-- Pagination Dots -->
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+        <button v-for="(slide, index) in heroSlides" :key="index" @click="goToSlide(index)"
+          class="w-3 h-3 rounded-full transition-all duration-300 hover:bg-white/80 focus:outline-none focus:ring-2 focus:ring-white/50"
+          :class="{
+            'bg-white w-6': currentSlide === index,
+            'bg-white/30 w-3': currentSlide !== index
+          }" :aria-label="`Go to slide ${index + 1}`"></button>
       </div>
 
-      <!-- Animated Transportation Elements -->
-      <div class="absolute inset-0 z-1 pointer-events-none">
-        <div class="cargo-ship absolute bottom-10 left-0 w-40 h-40 opacity-70">
-          <i class="fas fa-ship text-white text-6xl"></i>
-        </div>
-        <div class="airplane absolute top-20 right-0 w-40 h-40 opacity-70">
-          <i class="fas fa-plane text-white text-6xl"></i>
-        </div>
-      </div>
-
-      <!-- Content -->
-      <div class="hero-content relative z-10 h-full flex flex-col justify-center px-6 md:px-16 lg:px-24 text-white">
-        <div class="mb-6 animate-fade-in">
-          <span
-            class="inline-block px-6 py-2 bg-white/10 backdrop-blur-sm rounded-full text-blue-300 font-medium text-sm tracking-wider">
-            GLOBAL LOGISTICS SOLUTIONS
-          </span>
-        </div>
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight animate-fade-in delay-100">
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">Borderless</span>
-          Trade Simplified
-        </h1>
-        <p class="text-xl md:text-2xl max-w-3xl leading-relaxed opacity-90 mb-10 animate-fade-in delay-200">
-          Your trusted partner for air, sea and cross-border freight forwarding in East Africa since 1999
-        </p>
-        <div class="flex flex-col sm:flex-row gap-6 mb-8 animate-fade-in delay-300">
-          <a href="#contact"
-            class="relative overflow-hidden group bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg">
-            <span class="relative z-1 flex items-center">
-              Contact Support
-              <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
-                </path>
-              </svg>
-            </span>
-          </a>
-          <a href="#services"
-            class="relative overflow-hidden group border-2 border-white hover:border-blue-400 text-white font-bold px-10 py-4 rounded-full transition-all duration-300">
-            <span class="relative z-1 flex items-center">
-              Our Services
-              <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
-                stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </span>
-          </a>
-        </div>
+      <!-- Scroll Down Indicator -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
       </div>
     </section>
 
@@ -610,5 +783,100 @@ const processSteps = [
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* ... (rest of your styles remain the same) ... */
+/* Custom animations for carousel */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom cubic-bezier timing function for smoother transitions */
+.ease-\[cubic-bezier\(0\.65\,0\,0\.35\,1\)\] {
+  transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Smooth transitions for carousel */
+.carousel-enter-active,
+.carousel-leave-active {
+  transition: all 1s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.carousel-enter-from,
+.carousel-leave-to {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.carousel-enter-to,
+.carousel-leave-from {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Image zoom effect on active slide */
+img {
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Scroll indicator animation */
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0) translateX(-50%);
+  }
+
+  40% {
+    transform: translateY(-20px) translateX(-50%);
+  }
+
+  60% {
+    transform: translateY(-10px) translateX(-50%);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Smooth transitions for carousel */
+.carousel-enter-active,
+.carousel-leave-active {
+  transition: all 1s ease;
+}
+
+.carousel-enter-from,
+.carousel-leave-to {
+  opacity: 0;
+}
+
+.carousel-enter-to,
+.carousel-leave-from {
+  opacity: 1;
+}
+
+/* Image zoom effect on active slide */
+.carousel-image {
+  transition: transform 8s cubic-bezier(0.16, 1, 0.3, 1);
+}
 </style>

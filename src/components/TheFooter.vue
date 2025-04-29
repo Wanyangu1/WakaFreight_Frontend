@@ -6,7 +6,7 @@
         <div class="space-y-6">
           <div class="flex items-center space-x-4">
             <div>
-              <img src="@/assets/images/logo3.png" alt="WakaFreight Logo" class="h-18 w-46">
+              <img src="@/assets/images/logo6.png" alt="WakaFreight Logo" class="h-18 w-46">
             </div>
           </div>
           <p class="text-gray-300 text-sm leading-relaxed">
