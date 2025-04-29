@@ -160,6 +160,26 @@ const services = [
     image: 'https://images.unsplash.com/photo-1591768793355-74d04bb6608f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2078&q=80'
   }
 ];
+const testimonials = [
+  {
+    name: "James Kariuki",
+    role: "Import Manager, Nairobi",
+    quote: "Wakafreight cleared our pharmaceutical shipment in record time during the pandemic. Their expertise saved us thousands in demurrage costs.",
+    image: ""
+  },
+  {
+    name: "Sarah Mwangi",
+    role: "Export Director, Mombasa",
+    quote: "Their sea freight rates from Mombasa to China are unbeatable. We've shipped 200+ containers with zero delays in 3 years.",
+    image: ""
+  },
+  {
+    name: "David Omondi",
+    role: "Logistics Coordinator",
+    quote: "The cross-border team handles our Uganda/Tanzania routes seamlessly. One call solves any clearance issue.",
+    image: ""
+  }
+];
 
 const toggleService = (serviceId) => {
   activeService.value = activeService.value === serviceId ? null : serviceId;
@@ -348,87 +368,42 @@ const toggleService = (serviceId) => {
     </div>
   </section>
 
-  <!-- Testimonials -->
-  <section class="py-16 md:py-24 bg-blue-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-20 bg-blue-700 text-white">
+    <div class="container mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
-        <div class="w-20 h-1 bg-blue-400 mx-auto"></div>
+        <span class="text-blue-300 font-semibold tracking-wider">CLIENT VOICES</span>
+        <h2 class="text-4xl font-bold mt-3">Trusted by Businesses Across Africa</h2>
+        <div class="w-20 h-1 bg-blue-400 mx-auto mt-4"></div>
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div
-          class="bg-white/10 p-8 rounded-xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
-              <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Client testimonial"
-                class="w-full h-full object-cover">
+        <div v-for="(testimonial, index) in testimonials" :key="index"
+          class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-400/30 transition-all duration-500 transform hover:-translate-y-2">
+          <div class="flex items-center mb-6">
+            <div class="w-14 h-14 rounded-full bg-blue-600/30 flex items-center justify-center mr-4 text-2xl">
+              <i class="fas fa-user"></i>
             </div>
             <div>
-              <h4 class="font-bold">Sarah K.</h4>
-              <p class="text-blue-200 text-sm">Manufacturing Company</p>
+              <h4 class="font-bold text-lg">{{ testimonial.name }}</h4>
+              <div class="text-blue-200 text-sm">{{ testimonial.role }}</div>
             </div>
           </div>
-          <p class="italic">"WakaFreight transformed our supply chain. Their customs clearance team saved us thousands
-            in duty payments through proper classification."</p>
-          <div class="flex mt-4 text-yellow-400">
+          <p class="italic mb-6 relative pl-6">
+            <span class="absolute left-0 top-0 text-blue-400 text-2xl font-serif">"</span>
+            {{ testimonial.quote }}
+          </p>
+          <div class="text-yellow-400">
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
             <i class="fas fa-star"></i>
-          </div>
-        </div>
-
-        <div
-          class="bg-white/10 p-8 rounded-xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
-              <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client testimonial"
-                class="w-full h-full object-cover">
-            </div>
-            <div>
-              <h4 class="font-bold">James M.</h4>
-              <p class="text-blue-200 text-sm">Automotive Importer</p>
-            </div>
-          </div>
-          <p class="italic">"Their vehicle importation service is unmatched. From sourcing in Japan to registration in
-            Kenya, they handle everything seamlessly."</p>
-          <div class="flex mt-4 text-yellow-400">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-          </div>
-        </div>
-
-        <div
-          class="bg-white/10 p-8 rounded-xl backdrop-blur-sm border border-white/20 hover:border-white/40 transition-all duration-300">
-          <div class="flex items-center mb-4">
-            <div class="w-12 h-12 rounded-full overflow-hidden mr-4">
-              <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client testimonial"
-                class="w-full h-full object-cover">
-            </div>
-            <div>
-              <h4 class="font-bold">Amina W.</h4>
-              <p class="text-blue-200 text-sm">Pharmaceutical Distributor</p>
-            </div>
-          </div>
-          <p class="italic">"The temperature-controlled air freight service ensures our vaccines arrive in perfect
-            condition every time. Reliable and professional."</p>
-          <div class="flex mt-4 text-yellow-400">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star-half-alt"></i>
           </div>
         </div>
       </div>
     </div>
   </section>
-
   <!-- CTA Section -->
   <section class="relative py-16 md:py-32 text-white overflow-hidden">
     <div class="absolute inset-0 bg-black/60 z-0">

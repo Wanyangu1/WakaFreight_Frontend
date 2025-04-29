@@ -283,27 +283,6 @@ const services = [
   }
 ];
 
-const testimonials = [
-  {
-    name: "James Kariuki",
-    role: "Import Manager, Nairobi",
-    quote: "Wakafreight cleared our pharmaceutical shipment in record time during the pandemic. Their expertise saved us thousands in demurrage costs.",
-    image: ""
-  },
-  {
-    name: "Sarah Mwangi",
-    role: "Export Director, Mombasa",
-    quote: "Their sea freight rates from Mombasa to China are unbeatable. We've shipped 200+ containers with zero delays in 3 years.",
-    image: ""
-  },
-  {
-    name: "David Omondi",
-    role: "Logistics Coordinator",
-    quote: "The cross-border team handles our Uganda/Tanzania routes seamlessly. One call solves any clearance issue.",
-    image: ""
-  }
-];
-
 const processSteps = [
   {
     title: "Documentation",
@@ -390,7 +369,7 @@ const processSteps = [
                 'opacity-0 translate-y-4': currentSlide !== index
               }">
               <a href="#contact"
-                class="relative overflow-hidden group bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
+                class="relative overflow-hidden group  bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
                 <span class="relative z-1 flex items-center">
                   {{ slide.cta1 }}
                   <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
@@ -612,40 +591,149 @@ const processSteps = [
         </div>
       </div>
     </section>
+    <!-- Testimonials -->
+    <section class="py-16 md:py-24 bg-gradient-to-br from-blue-900 to-blue-800 text-white relative overflow-hidden">
+      <!-- Decorative elements -->
+      <div class="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-blue-700/20 blur-3xl"></div>
+      <div class="absolute -bottom-20 -left-20 w-64 h-64 rounded-full bg-blue-700/20 blur-3xl"></div>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-blue-700 text-white">
-      <div class="container mx-auto px-6">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-16">
-          <span class="text-blue-300 font-semibold tracking-wider">CLIENT VOICES</span>
-          <h2 class="text-4xl font-bold mt-3">Trusted by Businesses Across Africa</h2>
-          <div class="w-20 h-1 bg-blue-400 mx-auto mt-4"></div>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Voices From Our African Partners</h2>
+          <div class="w-20 h-1 bg-blue-400 mx-auto mb-6"></div>
+          <p class="text-blue-200 max-w-2xl mx-auto">
+            Trusted by businesses across East Africa for reliable logistics solutions
+          </p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-          <div v-for="(testimonial, index) in testimonials" :key="index"
-            class="bg-white/10 p-8 rounded-2xl backdrop-blur-sm border border-white/10 hover:border-blue-400/30 transition-all duration-500 transform hover:-translate-y-2">
+          <!-- Testimonial 1 -->
+          <div
+            class="bg-white/5 p-8 rounded-2xl backdrop-blur-md border border-white/20 hover:border-blue-400/50 transition-all duration-500 hover:-translate-y-2 group">
             <div class="flex items-center mb-6">
-              <div class="w-14 h-14 rounded-full bg-blue-600/30 flex items-center justify-center mr-4 text-2xl">
-                <i class="fas fa-user"></i>
+              <div class="relative">
+                <div
+                  class="w-14 h-14 rounded-full overflow-hidden ring-2 ring-blue-400 group-hover:ring-blue-300 transition-all">
+                  <img
+                    src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=128&h=128&q=80"
+                    alt="Nairobi businesswoman" class="w-full h-full object-cover">
+                </div>
+                <div
+                  class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                  <i class="fas fa-quote-left text-xs text-white"></i>
+                </div>
               </div>
-              <div>
-                <h4 class="font-bold text-lg">{{ testimonial.name }}</h4>
-                <div class="text-blue-200 text-sm">{{ testimonial.role }}</div>
+              <div class="ml-4">
+                <h4 class="font-bold text-lg">Wanjiku M.</h4>
+                <p class="text-blue-300 text-sm">Textile Manufacturer, Nairobi</p>
               </div>
             </div>
-            <p class="italic mb-6 relative pl-6">
-              <span class="absolute left-0 top-0 text-blue-400 text-2xl font-serif">"</span>
-              {{ testimonial.quote }}
-            </p>
-            <div class="text-yellow-400">
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
-              <i class="fas fa-star"></i>
+            <p
+              class="italic mb-6 relative pl-6 before:content-before:text-4xl before:text-blue-400/30 before:absolute before:left-0 before:-top-2">
+              WakaFreight' s cross-border service transformed our regional distribution. Their team understands East
+              African trade regulations better than anyone. </p>
+            <div class="flex items-center justify-between">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="text-blue-300 text-sm">
+                <i class="fas fa-map-marker-alt mr-1"></i> Kenya
+              </div>
             </div>
           </div>
+
+          <!-- Testimonial 2 -->
+          <div
+            class="bg-white/5 p-8 rounded-2xl backdrop-blur-md border border-white/20 hover:border-blue-400/50 transition-all duration-500 hover:-translate-y-2 group">
+            <div class="flex items-center mb-6">
+              <div class="relative">
+                <div
+                  class="w-14 h-14 rounded-full overflow-hidden ring-2 ring-blue-400 group-hover:ring-blue-300 transition-all">
+                  <img
+                    src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=128&h=128&q=80"
+                    alt="Kampala businessman" class="w-full h-full object-cover">
+                </div>
+                <div
+                  class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                  <i class="fas fa-quote-left text-xs text-white"></i>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-bold text-lg">Musa K.</h4>
+                <p class="text-blue-300 text-sm">Auto Importer, Kampala</p>
+              </div>
+            </div>
+            <p
+              class="italic mb-6 relative pl-6 before:content-before:text-4xl before:text-blue-400/30 before:absolute before:left-0 before:-top-2">
+              As a vehicle importer, I rely on WakaFreight' s Mombasa port operations. Their customs clearance team
+              saves
+              me 2-3 weeks on every shipment. </p>
+            <div class="flex items-center justify-between">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+              </div>
+              <div class="text-blue-300 text-sm">
+                <i class="fas fa-map-marker-alt mr-1"></i> Uganda
+              </div>
+            </div>
+          </div>
+
+          <!-- Testimonial 3 -->
+          <div
+            class="bg-white/5 p-8 rounded-2xl backdrop-blur-md border border-white/20 hover:border-blue-400/50 transition-all duration-500 hover:-translate-y-2 group">
+            <div class="flex items-center mb-6">
+              <div class="relative">
+                <div
+                  class="w-14 h-14 rounded-full overflow-hidden ring-2 ring-blue-400 group-hover:ring-blue-300 transition-all">
+                  <img
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=128&h=128&q=80"
+                    alt="Dar es Salaam businesswoman" class="w-full h-full object-cover">
+                </div>
+                <div
+                  class="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center">
+                  <i class="fas fa-quote-left text-xs text-white"></i>
+                </div>
+              </div>
+              <div class="ml-4">
+                <h4 class="font-bold text-lg">Neema J.</h4>
+                <p class="text-blue-300 text-sm">Pharma Distributor, Dar es Salaam</p>
+              </div>
+            </div>
+            <p
+              class="italic mb-6 relative pl-6 before:content-before:text-4xl before:text-blue-400/30 before:absolute before:left-0 before:-top-2">
+              Their temperature-controlled air freight from Europe ensures our medical supplies arrive in perfect
+              condition. 24/7 tracking gives us peace of mind.
+            </p>
+            <div class="flex items-center justify-between">
+              <div class="flex text-yellow-400">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="text-blue-300 text-sm">
+                <i class="fas fa-map-marker-alt mr-1"></i> Tanzania
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- View more button -->
+        <div class="text-center mt-12">
+          <a href="/services#testimonials"
+            class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-xl text-blue-900 bg-white hover:bg-blue-50 transition-all duration-300 shadow-md hover:shadow-lg">
+            Read More Success Stories
+            <i class="fas fa-arrow-right ml-2 text-blue-700"></i>
+          </a>
         </div>
       </div>
     </section>

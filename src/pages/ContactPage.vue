@@ -51,9 +51,9 @@ const branches = [
   },
   {
     city: 'Nairobi',
-    address: 'KeMu Towers, 17th Floor, P.O. Box 70343-00400',
+    address: 'ICD Embakasi, Nairobi, P.O. Box 70343-00400',
     phone: '+254 722 123 456',
-    email: 'nairobi@wakafreight.com',
+    email: 'wakafreight@gmail.com',
     map: 'https://maps.google.com/maps?q=KeMu+Towers+Nairobi&output=embed'
   },
 ];
@@ -61,7 +61,7 @@ const branches = [
 // Operational hours
 const operationalHours = [
   { day: 'Monday - Friday', hours: '8:00 AM - 5:00 PM' },
-  { day: 'Saturday', hours: '9:00 AM - 1:00 PM' },
+  { day: 'Saturday', hours: 'Closed' },
   { day: 'Sunday', hours: 'Closed' },
   { day: 'Emergency', hours: '24/7 Support Available' }
 ];

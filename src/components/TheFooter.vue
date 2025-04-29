@@ -66,7 +66,7 @@
               </div>
               <div>
                 <h4 class="text-sm font-semibold text-blue-300">Nairobi Office</h4>
-                <p class="text-gray-300 text-sm">KeMu Towers, 17th Floor<br>P.O. Box 70343-00400, Nairobi</p>
+                <p class="text-gray-300 text-sm">ICD Embakasi<br>P.O. Box 70343-00400, Nairobi</p>
               </div>
             </li>
             <li class="flex items-center">
@@ -177,12 +177,12 @@ export default {
         { name: 'YouTube', icon: 'fab fa-youtube', url: '#' }
       ],
       services: [
-        { name: 'Air Freight', path: '/services/air', icon: 'fas fa-plane' },
-        { name: 'Sea Freight', path: '/services/sea', icon: 'fas fa-ship' },
-        { name: 'Cross-Border', path: '/services/cross-border', icon: 'fas fa-truck' },
-        { name: 'Customs Clearance', path: '/services/customs', icon: 'fas fa-file-contract' },
-        { name: 'Warehousing', path: '/services/warehousing', icon: 'fas fa-warehouse' },
-        { name: 'Vehicle Import', path: '/services/vehicle-import', icon: 'fas fa-car' }
+        { name: 'Air Freight', path: '/services#services', icon: 'fas fa-plane' },
+        { name: 'Sea Freight', path: '/services#services', icon: 'fas fa-ship' },
+        { name: 'Cross-Border', path: '/services#services', icon: 'fas fa-truck' },
+        { name: 'Customs Clearance', path: '/services#services', icon: 'fas fa-file-contract' },
+        { name: 'Warehousing', path: '/services#services', icon: 'fas fa-warehouse' },
+        { name: 'Vehicle Import', path: '/services#services', icon: 'fas fa-car' }
       ]
     }
   }

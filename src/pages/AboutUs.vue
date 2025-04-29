@@ -60,12 +60,12 @@ const companyData = {
 const leadership = [
   {
     name: 'Julius Waka',
-    position: 'Founder & CEO',
+    position: 'Managing Director & CEO',
     bio: '25+ years in logistics industry, established WakaFreight to revolutionize East African freight solutions.',
     image: ceo
   },
   {
-    name: 'Sarah Kamau',
+    name: 'Gladys Omondi',
     position: 'Operations Director',
     bio: 'Specializes in customs regulations and cross-border logistics with 15 years experience.',
     image: md
@@ -267,29 +267,36 @@ onMounted(() => {
     </div>
   </section>
   <!-- Leadership Team -->
-  <section class="py-16 md:py-24 bg-gray-50 relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="py-16 md:py-24 bg-gray-50 relative overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div class="text-center mb-16 animate-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
-        <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
-        <p class="text-gray-600 max-w-2xl mx-auto mt-6">
-          Experienced professionals guiding WakaFreight's growth and innovation
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Executive Leadership</h2>
+        <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+        <p class="text-gray-600 max-w-2xl mx-auto mt-6 px-4">
+          Guiding WakaFreight's vision with decades of combined industry expertise
         </p>
       </div>
 
-      <div class="grid md:grid-cols-3 gap-8">
-        <div v-for="(member, index) in leadership" :key="index"
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-on-scroll"
-          :style="`animation-delay: ${index * 0.1}s`">
-          <div class="h-64 bg-gray-200 overflow-hidden relative">
-            <img :src="member.image" :alt="member.name"
+      <div class="grid md:grid-cols-3 gap-8 px-4 sm:px-0">
+        <!-- CEO Card -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 animate-on-scroll group w-full"
+          style="animation-delay: 0s">
+          <div class="h-64 bg-gray-200 overflow-hidden relative w-full">
+            <img :src="leadership[0].image" :alt="leadership[0].name"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+            <div
+              class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
+              <i class="fas fa-crown mr-1"></i> Founder
+            </div>
           </div>
           <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">{{ member.name }}</h3>
-            <p class="text-blue-600 font-medium mb-3">{{ member.position }}</p>
-            <p class="text-gray-600 mb-4">{{ member.bio }}</p>
+            <h3 class="text-xl font-bold text-gray-900">{{ leadership[0].name }}</h3>
+            <p class="text-blue-600 font-medium mb-3 flex items-center">
+              <i class="fas fa-briefcase mr-2"></i> {{ leadership[0].position }}
+            </p>
+            <p class="text-gray-600 mb-4">{{ leadership[0].bio }}</p>
             <div class="flex space-x-3">
               <a href="#"
                 class="w-8 h-8 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 flex items-center justify-center transition-colors">
@@ -302,7 +309,81 @@ onMounted(() => {
             </div>
           </div>
         </div>
+
+        <!-- Operations Director Card -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 animate-on-scroll group w-full"
+          style="animation-delay: 0.1s">
+          <div class="h-64 bg-gray-200 overflow-hidden relative w-full">
+            <img :src="leadership[1].image" :alt="leadership[1].name"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+            <div
+              class="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
+              <i class="fas fa-cogs mr-1"></i> Operations
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900">{{ leadership[1].name }}</h3>
+            <p class="text-emerald-600 font-medium mb-3 flex items-center">
+              <i class="fas fa-map-signs mr-2"></i> {{ leadership[1].position }}
+            </p>
+            <p class="text-gray-600 mb-4">{{ leadership[1].bio }}</p>
+            <div class="flex space-x-3">
+              <a href="#"
+                class="w-8 h-8 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 flex items-center justify-center transition-colors">
+                <i class="fab fa-linkedin-in text-sm"></i>
+              </a>
+              <a href="#"
+                class="w-8 h-8 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 flex items-center justify-center transition-colors">
+                <i class="fas fa-envelope text-sm"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manager Card - Enhanced -->
+        <div
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 animate-on-scroll group w-full"
+          style="animation-delay: 0.2s">
+          <div class="h-64 bg-gray-200 overflow-hidden relative w-full">
+            <img :src="leadership[2].image" :alt="leadership[2].name"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+            <div
+              class="absolute top-4 right-4 bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
+              <i class="fas fa-user-tie mr-1"></i> Manager
+            </div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900">{{ leadership[2].name }}</h3>
+            <p class="text-amber-600 font-medium mb-3 flex items-center">
+              <i class="fas fa-user-tie mr-2"></i> Overall Manager
+            </p>
+            <p class="text-gray-600 mb-4">
+              Experienced leader skilled in managing teams, optimizing operations, and driving strategic growth to boost
+              efficiency and client satisfaction.
+            </p>
+            <div class="flex space-x-3">
+              <a href="#"
+                class="w-8 h-8 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-600 flex items-center justify-center transition-colors">
+                <i class="fab fa-linkedin-in text-sm"></i>
+              </a>
+              <a href="#"
+                class="w-8 h-8 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-600 flex items-center justify-center transition-colors">
+                <i class="fas fa-envelope text-sm"></i>
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <!-- Animated floating icons -->
+      <div
+        class="absolute -bottom-20 -left-20 w-40 h-40 rounded-full bg-blue-100/20 blur-xl z-0 animate-float max-w-full">
+      </div>
+      <div class="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-blue-100/20 blur-xl z-0 animate-float max-w-full"
+        style="animation-delay: 2s"></div>
     </div>
   </section>
 
