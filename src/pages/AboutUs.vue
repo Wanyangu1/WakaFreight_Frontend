@@ -4,6 +4,7 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
+import ceo from '@/assets/images/team/Derrick.jpeg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -56,22 +57,22 @@ const companyData = {
 // Leadership team
 const leadership = [
   {
-    name: 'John Mwangi',
+    name: 'Julius Waka',
     position: 'Founder & CEO',
     bio: '25+ years in logistics industry, established WakaFreight to revolutionize East African freight solutions.',
-    image: '@/assets/images/team/ceo.jpg'
+    image: ceo
   },
   {
     name: 'Sarah Kamau',
     position: 'Operations Director',
     bio: 'Specializes in customs regulations and cross-border logistics with 15 years experience.',
-    image: '@/assets/images/team/operations.jpg'
+    image: ceo
   },
   {
-    name: 'David Omondi',
-    position: 'Finance Director',
+    name: 'Derrick John',
+    position: 'Manager',
     bio: 'Financial strategist ensuring cost-effective solutions for our clients.',
-    image: '@/assets/images/team/finance.jpg'
+    image: ceo
   }
 ]
 
@@ -263,6 +264,45 @@ onMounted(() => {
       </div>
     </div>
   </section>
+  <!-- Leadership Team -->
+  <section class="py-16 md:py-24 bg-gray-50 relative">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
+        <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
+        <p class="text-gray-600 max-w-2xl mx-auto mt-6">
+          Experienced professionals guiding WakaFreight's growth and innovation
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div v-for="(member, index) in leadership" :key="index"
+          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-on-scroll"
+          :style="`animation-delay: ${index * 0.1}s`">
+          <div class="h-64 bg-gray-200 overflow-hidden relative">
+            <img :src="member.image" :alt="member.name"
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
+          </div>
+          <div class="p-6">
+            <h3 class="text-xl font-bold text-gray-900">{{ member.name }}</h3>
+            <p class="text-blue-600 font-medium mb-3">{{ member.position }}</p>
+            <p class="text-gray-600 mb-4">{{ member.bio }}</p>
+            <div class="flex space-x-3">
+              <a href="#"
+                class="w-8 h-8 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 flex items-center justify-center transition-colors">
+                <i class="fab fa-linkedin-in text-sm"></i>
+              </a>
+              <a href="#"
+                class="w-8 h-8 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 flex items-center justify-center transition-colors">
+                <i class="fas fa-envelope text-sm"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Mission & Values -->
   <section class="py-16 md:py-24 bg-gray-50 relative">
@@ -366,46 +406,6 @@ onMounted(() => {
                 class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
                 Learn more
                 <i class="fas fa-arrow-right ml-2 text-sm"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Leadership Team -->
-  <section class="py-16 md:py-24 bg-gray-50 relative">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-16 animate-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Leadership Team</h2>
-        <div class="w-20 h-1 bg-blue-500 mx-auto"></div>
-        <p class="text-gray-600 max-w-2xl mx-auto mt-6">
-          Experienced professionals guiding WakaFreight's growth and innovation
-        </p>
-      </div>
-
-      <div class="grid md:grid-cols-3 gap-8">
-        <div v-for="(member, index) in leadership" :key="index"
-          class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 animate-on-scroll"
-          :style="`animation-delay: ${index * 0.1}s`">
-          <div class="h-64 bg-gray-200 overflow-hidden relative">
-            <img :src="member.image" :alt="member.name"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold text-gray-900">{{ member.name }}</h3>
-            <p class="text-blue-600 font-medium mb-3">{{ member.position }}</p>
-            <p class="text-gray-600 mb-4">{{ member.bio }}</p>
-            <div class="flex space-x-3">
-              <a href="#"
-                class="w-8 h-8 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 flex items-center justify-center transition-colors">
-                <i class="fab fa-linkedin-in text-sm"></i>
-              </a>
-              <a href="#"
-                class="w-8 h-8 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 flex items-center justify-center transition-colors">
-                <i class="fas fa-envelope text-sm"></i>
               </a>
             </div>
           </div>

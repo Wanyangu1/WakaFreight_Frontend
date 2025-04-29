@@ -5,19 +5,8 @@
         <!-- Company Info & Logo -->
         <div class="space-y-6">
           <div class="flex items-center space-x-4">
-            <div class="relative">
-              <div
-                class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 text-white flex items-center justify-center shadow-lg border-2 border-white/20">
-                <i class="fas fa-shipping-fast text-2xl"></i>
-              </div>
-              <div
-                class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-green-400 border-2 border-white flex items-center justify-center">
-                <i class="fas fa-check text-white text-xs"></i>
-              </div>
-            </div>
             <div>
-              <h2 class="text-2xl font-bold text-white font-serif">WakaFreight</h2>
-              <p class="text-sm text-blue-300 tracking-wider">GLOBAL LOGISTICS SOLUTIONS</p>
+              <img src="@/assets/images/logo3.png" alt="WakaFreight Logo" class="h-18 w-46">
             </div>
           </div>
           <p class="text-gray-300 text-sm leading-relaxed">

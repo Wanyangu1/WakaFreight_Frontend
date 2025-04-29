@@ -88,7 +88,7 @@ const operationalHours = [
   </div>
 
   <!-- Main Content -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 -mt-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-20 -mt-16">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
       <!-- Contact Form -->
       <div class="lg:col-span-2 bg-white rounded-xl shadow-xl overflow-hidden">

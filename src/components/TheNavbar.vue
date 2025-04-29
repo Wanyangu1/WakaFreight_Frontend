@@ -10,13 +10,13 @@ const topBarLinks = [
   {
     name: 'Track Shipment',
     icon: 'fas fa-map-marked-alt',
-    path: '/tracking',
+    path: '/t',
     badge: 'Live'
   },
   {
     name: 'Customer Support',
     icon: 'fas fa-user',
-    path: '/',
+    path: '/contact',
     badge: 'Secure'
   }
 ];
@@ -34,25 +34,25 @@ const navLinks = [
     dropdown: [
       {
         name: 'Air Freight',
-        path: '/services/air',
+        path: '/services#services',
         icon: 'fas fa-plane-departure',
         description: 'Express global air cargo solutions'
       },
       {
         name: 'Sea Freight',
-        path: '/services/sea',
+        path: '/services#services',
         icon: 'fas fa-ship',
         description: 'Cost-effective ocean shipping'
       },
       {
         name: 'Cross-Border',
-        path: '/services/cross-border',
+        path: '/services#services',
         icon: 'fas fa-truck-moving',
         description: 'Seamless regional logistics'
       },
       {
         name: 'Customs Clearance',
-        path: '/services/customs',
+        path: '/services#services',
         icon: 'fas fa-file-signature',
         description: 'Expert documentation handling'
       }
@@ -60,13 +60,13 @@ const navLinks = [
   },
   {
     name: 'Industries',
-    path: '/industries',
-    icon: 'fas fa-industry-alt',
+    path: '/clients#industries',
+    icon: 'fas fa-industry',
     dropdown: [
-      { name: 'Pharmaceutical', icon: 'fas fa-pills' },
-      { name: 'Manufacturing', icon: 'fas fa-cogs' },
-      { name: 'Agriculture', icon: 'fas fa-tractor' },
-      { name: 'Retail', icon: 'fas fa-shopping-basket' }
+      { name: 'Pharmaceutical', path: '/clients#industries', icon: 'fas fa-pills' },
+      { name: 'Manufacturing', path: '/clients#industries', icon: 'fas fa-cogs' },
+      { name: 'Agriculture', path: '/clients#industries', icon: 'fas fa-tractor' },
+      { name: 'Retail', path: '/clients#industries', icon: 'fas fa-shopping-basket' }
     ]
   },
   {
@@ -243,7 +243,8 @@ onUnmounted(() => {
                   </a>
                 </div>
                 <div v-if="link.name === 'Services'" class="bg-gray-50 px-4 py-3 rounded-b-xl border-t border-gray-100">
-                  <a href="/services" class="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center">
+                  <a href="/services#services"
+                    class="text-sm font-medium text-blue-600 hover:text-blue-800 flex items-center">
                     View all services
                     <i class="fas fa-arrow-right ml-2 text-xs"></i>
                   </a>

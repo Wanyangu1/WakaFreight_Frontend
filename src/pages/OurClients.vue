@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
+import automotive from '@/assets/images/services/import.webp'
 
 const activeIndustry = ref(null)
 
@@ -10,6 +11,7 @@ const clientIndustries = [
     id: 'manufacturing',
     title: 'Manufacturing',
     icon: 'industry',
+    preview: 'Custom logistics for raw material imports and finished goods exports',
     description: 'We support manufacturers with raw material imports, export documentation, and bonded warehouse solutions.',
     benefits: [
       'Duty optimization for production inputs',
@@ -23,6 +25,7 @@ const clientIndustries = [
     id: 'automotive',
     title: 'Automotive',
     icon: 'car',
+    preview: 'Complete vehicle import solutions from sourcing to registration',
     description: 'Specialized vehicle importation services for dealers and individual buyers.',
     benefits: [
       'End-to-end vehicle importation',
@@ -30,12 +33,13 @@ const clientIndustries = [
       'Pre-shipment inspections',
       'Registration assistance'
     ],
-    image: 'https://images.unsplash.com/photo-1494972308805-463bc619d34e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2073&q=80'
+    image: automotive
   },
   {
     id: 'pharmaceutical',
     title: 'Pharmaceutical',
     icon: 'prescription-bottle',
+    preview: 'Temperature-controlled logistics for sensitive medical supplies',
     description: 'Temperature-controlled logistics for sensitive medical supplies and pharmaceuticals.',
     benefits: [
       'Cold chain logistics',
@@ -49,6 +53,7 @@ const clientIndustries = [
     id: 'agriculture',
     title: 'Agriculture',
     icon: 'tractor',
+    preview: 'Specialized handling for perishable agricultural products',
     description: 'Logistics solutions for agricultural inputs and export produce.',
     benefits: [
       'Perishable goods handling',
@@ -62,6 +67,7 @@ const clientIndustries = [
     id: 'retail',
     title: 'Retail & E-Commerce',
     icon: 'shopping-cart',
+    preview: 'Efficient last-mile delivery solutions for retailers',
     description: 'Supply chain solutions for retailers and online businesses.',
     benefits: [
       'Last-mile delivery',
@@ -75,6 +81,7 @@ const clientIndustries = [
     id: 'construction',
     title: 'Construction',
     icon: 'hard-hat',
+    preview: 'Heavy equipment and materials logistics specialists',
     description: 'Heavy equipment and materials logistics for construction firms.',
     benefits: [
       'Oversized cargo handling',
@@ -115,7 +122,7 @@ const toggleIndustry = (industryId) => {
 <template>
   <TheNavbar />
 
-  <!-- Hero Section with CTA Button -->
+  <!-- Hero Section -->
   <section class="relative bg-gradient-to-r from-blue-900 to-blue-800 text-white py-24 md:py-32">
     <div class="absolute inset-0 bg-black/40 z-0">
       <img src="@/assets/images/services/bg1.jpg" alt="Happy clients" class="w-full h-full object-cover">
@@ -130,11 +137,11 @@ const toggleIndustry = (industryId) => {
         </p>
         <div class="flex justify-center gap-4">
           <a href="#industries"
-            class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg shadow-lg transition-colors">
+            class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-6 rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
             Explore Industries
           </a>
           <a href="/contact"
-            class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-colors">
+            class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105">
             Contact Us
           </a>
         </div>
@@ -155,11 +162,11 @@ const toggleIndustry = (industryId) => {
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div v-for="industry in clientIndustries" :key="industry.id"
-          class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all"
-          :class="{ 'ring-2 ring-blue-500': activeIndustry === industry.id }">
+          class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300 group"
+          :class="{ 'ring-2 ring-blue-500 shadow-lg': activeIndustry === industry.id }">
 
           <!-- Industry Header -->
-          <div class="relative h-58 overflow-hidden">
+          <div class="relative h-60 overflow-hidden">
             <img :src="industry.image" :alt="industry.title"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-black/30 flex items-end p-6">
@@ -172,27 +179,28 @@ const toggleIndustry = (industryId) => {
             </div>
           </div>
 
-          <!-- Preview Content (always visible) -->
+          <!-- Preview Content -->
           <div class="p-6">
-            <p class="text-gray-600 mb-4">{{ industry.preview }}</p>
+            <p class="text-gray-600 text-md mb-4">{{ industry.preview }}</p>
+
+            <!-- Toggle Button -->
             <button @click="toggleIndustry(industry.id)"
-              class="flex items-center justify-center px-6 py-2 border border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-600 hover:text-white transition-all duration-300">
-              {{ activeIndustry === industry.id ? 'Show Less' : 'Read More' }}
-              <i
-                :class="`fas fa-chevron-${activeIndustry === industry.id ? 'up' : 'down'} ml-2 text-sm transition-transform`"></i>
+              class="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-all duration-300">
+              <span>{{ activeIndustry === industry.id ? 'Show Less' : 'View Details' }}</span>
+              <i class="fas ml-2 transition-transform duration-300"
+                :class="activeIndustry === industry.id ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
             </button>
           </div>
 
-          <!-- Expanded Content (collapsible) -->
-          <transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 max-h-0"
-            enter-to-class="opacity-100 max-h-[1000px]" leave-active-class="transition ease-in duration-200"
+          <!-- Expanded Content -->
+          <transition enter-active-class="transition-[opacity,max-height] duration-500 ease-out"
+            enter-from-class="opacity-0 max-h-0" enter-to-class="opacity-100 max-h-[1000px]"
+            leave-active-class="transition-[opacity,max-height] duration-300 ease-in"
             leave-from-class="opacity-100 max-h-[1000px]" leave-to-class="opacity-0 max-h-0">
             <div v-show="activeIndustry === industry.id" class="overflow-hidden border-t border-gray-200">
               <div class="p-6 pt-4">
-                <!-- Industry Description -->
-                <div class="text-gray-600 mb-6">
-                  {{ industry.description }}
-                </div>
+                <!-- Full Description -->
+                <p class="text-gray-600 mb-6">{{ industry.description }}</p>
 
                 <!-- Key Benefits -->
                 <div class="bg-blue-50 border border-blue-100 rounded-lg p-4 mb-4">
@@ -207,7 +215,7 @@ const toggleIndustry = (industryId) => {
 
                 <!-- CTA Button -->
                 <a href="/contact"
-                  class="inline-flex items-center bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 px-4 rounded-lg transition-all text-sm">
+                  class="inline-flex items-center justify-center w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-bold py-2 px-4 rounded-lg transition-all duration-300">
                   Get Industry Solution
                 </a>
               </div>
@@ -231,7 +239,7 @@ const toggleIndustry = (industryId) => {
 
       <div class="grid md:grid-cols-3 gap-8">
         <div v-for="(initiative, index) in csrInitiatives" :key="index"
-          class="bg-white border border-gray-200 p-8 rounded-xl hover:shadow-lg transition-all">
+          class="bg-white border border-gray-200 p-8 rounded-xl hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600">
             <i :class="`fas fa-${initiative.icon} text-2xl`"></i>
           </div>
@@ -253,11 +261,11 @@ const toggleIndustry = (industryId) => {
               logistics workforce.
             </p>
             <a href="/careers"
-              class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+              class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 hover:shadow-md">
               <i class="fas fa-info-circle mr-2"></i> Learn About Our Programs
             </a>
           </div>
-          <div class="rounded-xl overflow-hidden">
+          <div class="rounded-xl overflow-hidden shadow-lg">
             <img
               src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
               alt="Internship program" class="w-full h-full object-cover">
@@ -336,7 +344,7 @@ const toggleIndustry = (industryId) => {
               </select>
             </div>
             <button type="submit"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300">
               Submit Partnership Request
             </button>
           </form>
@@ -354,11 +362,11 @@ const toggleIndustry = (industryId) => {
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
         <a href="/contact"
-          class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors">
+          class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-all duration-300 hover:scale-105">
           <i class="fas fa-phone-alt mr-2"></i> Contact Our Team
         </a>
         <a href="/services"
-          class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-8 rounded-lg transition-colors">
+          class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-8 rounded-lg transition-all duration-300 hover:scale-105">
           <i class="fas fa-list-ul mr-2"></i> View All Services
         </a>
       </div>
@@ -372,10 +380,6 @@ const toggleIndustry = (industryId) => {
 /* Smooth transitions for industry cards */
 .service-card {
   transition: all 0.3s ease;
-}
-
-chevron-transition {
-  transition: transform 0.2s ease;
 }
 
 /* Custom scrollbar for industry descriptions */
@@ -409,5 +413,10 @@ chevron-transition {
     width: 40px;
     height: 40px;
   }
+}
+
+/* Image hover effect */
+.group:hover img {
+  transform: scale(1.05);
 }
 </style>

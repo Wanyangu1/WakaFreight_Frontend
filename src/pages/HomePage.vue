@@ -516,7 +516,7 @@ const processSteps = [
               </div>
             </div>
           </div>
-          <div class="lg:w-1/2 bg-white rounded-xl shadow-2xl overflow-hidden">
+          <div class="lg:w-1/2 sm:w-3/4 bg-white rounded-xl shadow-2xl overflow-hidden">
             <div class="p-8 text-gray-800">
               <h3 class="text-2xl font-bold mb-6">Request a Quote</h3>
               <form class="space-y-4">
