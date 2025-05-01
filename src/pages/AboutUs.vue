@@ -4,9 +4,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TheNavbar from '@/components/TheNavbar.vue'
 import TheFooter from '@/components/TheFooter.vue'
-import ceo from '@/assets/images/team/Julius.jpg'
+import ceo from '@/assets/images/team/Julius1.JPG'
 import md from '@/assets/images/team/person.jpg'
-import manager from '@/assets/images/team/Derrick1.jpg'
+import manager from '@/assets/images/team/Derrick2.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -170,7 +170,8 @@ onMounted(() => {
   <TheNavbar />
 
   <!-- Hero Section with Parallax Effect -->
-  <section class="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+  <section
+    class="relative h-[70vh] min-h-[400px] lg:h-[90vh] lg:min-h-[600px] flex items-center justify-center overflow-hidden">
     <!-- Background with parallax effect -->
     <div class="absolute inset-0 z-0">
       <img src="@/assets/images/background.jpg" alt="Freight containers at port" class="w-full h-full object-cover"
@@ -282,7 +283,7 @@ onMounted(() => {
         <div
           class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 animate-on-scroll group w-full"
           style="animation-delay: 0s">
-          <div class="h-64 bg-gray-200 overflow-hidden relative w-full">
+          <div class="h-70 bg-gray-200 overflow-hidden relative w-full">
             <img :src="leadership[0].image" :alt="leadership[0].name"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
@@ -314,7 +315,7 @@ onMounted(() => {
         <div
           class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 animate-on-scroll group w-full"
           style="animation-delay: 0.1s">
-          <div class="h-64 bg-gray-200 overflow-hidden relative w-full">
+          <div class="h-70 bg-gray-200 overflow-hidden relative w-full">
             <img :src="leadership[1].image" :alt="leadership[1].name"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
@@ -346,7 +347,7 @@ onMounted(() => {
         <div
           class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 animate-on-scroll group w-full"
           style="animation-delay: 0.2s">
-          <div class="h-64 bg-gray-200 overflow-hidden relative w-full">
+          <div class="h-70 bg-gray-200 overflow-hidden relative w-full">
             <img :src="leadership[2].image" :alt="leadership[2].name"
               class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>

@@ -71,12 +71,12 @@ const operationalHours = [
   <TheNavbar />
 
   <!-- Hero Section -->
-  <div class="relative bg-blue-900 text-white pt-32 pb-22">
+  <div class="relative h-[22vh] min-h-[200px] lg:h-[40vh] bg-blue-900 text-white pt-32 pb-22">
     <div class="absolute inset-0 bg-black/60 z-0">
-      <img src="@/assets/images/services/support.jpg" alt="Happy clients" class="w-full h-full object-cover">
-      <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/80"></div>
+      <img src="@/assets/images/services/contact.jpg" alt="Happy clients" class="w-full h-full object-cover">
+      <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/60"></div>
     </div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-4">Contact Our Logistics Team</h1>
         <div class="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
@@ -84,7 +84,7 @@ const operationalHours = [
           Get in touch with our freight experts for shipment tracking, customs clearance, or any logistics inquiries.
         </p>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- Main Content -->

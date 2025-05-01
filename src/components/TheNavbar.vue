@@ -8,10 +8,10 @@ const activeDropdown = ref(null);
 
 const topBarLinks = [
   {
-    name: 'Track Shipment',
-    icon: 'fas fa-map-marked-alt',
-    path: '/t',
-    badge: 'Live'
+    name: 'Careers',
+    icon: 'fas fa-briefcase',
+    path: '/careers',
+    badge: 'updated'
   },
   {
     name: 'Customer Support',
@@ -60,13 +60,13 @@ const navLinks = [
   },
   {
     name: 'Industries',
-    path: '/clients#industries',
+    path: '/industries',
     icon: 'fas fa-industry',
     dropdown: [
-      { name: 'Pharmaceutical', path: '/clients#industries', icon: 'fas fa-pills' },
-      { name: 'Manufacturing', path: '/clients#industries', icon: 'fas fa-cogs' },
-      { name: 'Agriculture', path: '/clients#industries', icon: 'fas fa-tractor' },
-      { name: 'Retail', path: '/clients#industries', icon: 'fas fa-shopping-basket' }
+      { name: 'Pharmaceutical', path: '#industries', icon: 'fas fa-pills' },
+      { name: 'Manufacturing', path: '#industries', icon: 'fas fa-cogs' },
+      { name: 'Agriculture', path: '#industries', icon: 'fas fa-tractor' },
+      { name: 'Retail', path: '#industries', icon: 'fas fa-shopping-basket' }
     ]
   },
   {
@@ -154,7 +154,7 @@ onUnmounted(() => {
           </a>
           <a href="#"
             class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
-            <i class="fab fa-twitter text-sm"></i>
+            <i class="fab fa-tiktok text-sm"></i>
           </a>
           <a href="#"
             class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
@@ -167,27 +167,14 @@ onUnmounted(() => {
 
   <!-- Main Navigation -->
   <nav class="sticky top-0 z-50 transition-all duration-300"
-    :class="isScrolled ? 'bg-white shadow-lg py-0 border-b border-gray-100' : 'bg-white/95 backdrop-blur-sm py-2 border-b border-white/20'">
+    :class="isScrolled ? 'bg-gray-50 shadow-lg py-0 border-b border-gray-100' : 'bg-white/95 backdrop-blur-sm py-2 border-b border-white/20'">
     <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-4">
       <div class="flex justify-between items-center h-20">
         <!-- Logo -->
         <div class="flex-shrink-0 flex items-center">
           <a href="/" class="flex items-center group">
-            <div class="relative">
-              <div
-                class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-blue-800 text-white flex items-center justify-center transform group-hover:rotate-3 transition-all duration-500 shadow-md border-2 border-white/20">
-                <i class="fas fa-shipping-fast text-2xl"></i>
-              </div>
-              <div
-                class="absolute -bottom-1 -right-1 w-5 h-5 rounded-full bg-green-400 border-2 border-white flex items-center justify-center">
-                <i class="fas fa-check text-white text-xs"></i>
-              </div>
-            </div>
             <div class="ml-3">
-              <h1 class="text-2xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors font-serif">
-                WakaFreight
-              </h1>
-              <p class="text-xs text-gray-500 -mt-1 tracking-wider">FORWADERS LIMITED</p>
+              <img src="@/assets/images/logos/wakalogo.png" alt="Logo" class="h-45 w-auto" />
             </div>
           </a>
         </div>
@@ -325,7 +312,7 @@ onUnmounted(() => {
         </div>
 
         <div class="mt-6 pt-4 border-t border-gray-200">
-          <a href="/quote"
+          <a href="/contact"
             class="w-full flex items-center justify-center px-3 py-3 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 transition-all duration-300"
             @click="isNavbarCollapsed = true">
             <div class="w-8 h-8 rounded-lg bg-white/20 border border-white/30 flex items-center justify-center mr-3">

@@ -301,10 +301,53 @@ const processSteps = [
   },
   {
     title: "Delivery",
-    description: "Final mile delivery with real-time tracking",
+    description: "Reliable last-mile delivery with guaranteed timeliness and care",
     icon: "fa-box-open"
   }
 ];
+import darfordLogo from '@/assets/images/logos/darford.png'
+import aviproLogo from '@/assets/images/logos/avipro.jpeg'
+import agrocornerLogo from '@/assets/images/logos/agrocorner.png'
+import ungaLogo from '@/assets/images/logos/ungafarmcare.png'
+import wakaLogo from '@/assets/images/logos/wakalogo.png'
+
+const clientLogos = ref([
+  {
+    name: 'Darford Industries',
+    logo: darfordLogo,
+    industry: 'Manufacturing',
+    testimonial: "Their logistics solutions streamlined our supply chain by 40%",
+    since: 2018
+  },
+  {
+    name: 'Avipro',
+    logo: aviproLogo,
+    industry: 'Agri-Tech',
+    testimonial: "Reliable cold chain solutions for our sensitive products",
+    since: 2020
+  },
+  {
+    name: 'Agrocorner',
+    logo: agrocornerLogo,
+    industry: 'Agriculture',
+    testimonial: "Timely deliveries that keep our produce fresh",
+    since: 2019
+  },
+  {
+    name: 'Unga FarmCare',
+    logo: ungaLogo,
+    industry: 'Animal Nutrition',
+    testimonial: "Custom solutions for our bulk feed ingredients",
+    since: 2017
+  },
+  {
+    name: 'WakaFreight Forwarders Ltd',
+    logo: wakaLogo,
+    industry: 'Logistics',
+    testimonial: "Our trusted partner for cross-border operations",
+    since: 2015
+  }
+])
 </script>
 
 <template>
@@ -313,8 +356,9 @@ const processSteps = [
     <TheNavbar />
 
     <!-- Enhanced Hero Carousel -->
-    <section class="relative h-[90vh] min-h-[600px] overflow-hidden" @mouseenter="pauseCarousel"
-      @mouseleave="resumeCarousel" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
+    <section class="relative h-[70vh] min-h-[400px] lg:h-[90vh] lg:min-h-[600px] overflow-hidden"
+      @mouseenter="pauseCarousel" @mouseleave="resumeCarousel" @touchstart="handleTouchStart"
+      @touchend="handleTouchEnd">
       <!-- Slides -->
       <div class="relative h-full w-full">
         <div v-for="(slide, index) in heroSlides" :key="index"
@@ -368,24 +412,26 @@ const processSteps = [
                 'opacity-100 translate-y-0': currentSlide === index,
                 'opacity-0 translate-y-4': currentSlide !== index
               }">
+
               <a href="#contact"
-                class="relative overflow-hidden group  bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
-                <span class="relative z-1 flex items-center">
+                class="w-3/4 sm:w-auto relative overflow-hidden group bg-blue-600 hover:bg-blue-700 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl">
+                <span class="relative z-1 flex items-center justify-center">
                   {{ slide.cta1 }}
                   <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3">
-                    </path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
                 </span>
               </a>
+
               <a href="#services"
-                class="relative overflow-hidden group border-2 border-white hover:border-blue-400 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 hover:bg-white/10">
-                <span class="relative z-1 flex items-center">
+                class="w-3/4 sm:w-auto relative overflow-hidden group border-2 border-white hover:border-blue-400 text-white font-bold px-10 py-4 rounded-full transition-all duration-300 hover:bg-white/10">
+                <span class="relative z-1 flex items-center justify-center">
                   {{ slide.cta2 }}
                   <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-2" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </span>
               </a>
@@ -423,7 +469,7 @@ const processSteps = [
       </div>
 
       <!-- Scroll Down Indicator -->
-      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 animate-bounce">
+      <div class="absolute bottom-14 left-1/2 -translate-x-1/2 z-20 animate-bounce">
         <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
@@ -458,25 +504,31 @@ const processSteps = [
         </div>
       </div>
     </section>
-    <!-- Trust Badges Section -->
-    <section class="py-12 bg-gray-100">
-      <div class="container mx-auto px-6">
-        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
-          <div class="opacity-80 hover:opacity-100 transition-opacity">
-            <i class="fas fa-shield-alt text-4xl text-blue-600"></i>
-            <p class="mt-2 text-sm font-medium">Licensed by KRA</p>
-          </div>
-          <div class="opacity-80 hover:opacity-100 transition-opacity">
-            <i class="fas fa-certificate text-4xl text-green-600"></i>
-            <p class="mt-2 text-sm font-medium">FIATA Member</p>
-          </div>
-          <div class="opacity-80 hover:opacity-100 transition-opacity">
-            <i class="fas fa-globe-africa text-4xl text-orange-600"></i>
-            <p class="mt-2 text-sm font-medium">East Africa Network</p>
-          </div>
-          <div class="opacity-80 hover:opacity-100 transition-opacity">
-            <i class="fas fa-clock text-4xl text-purple-600"></i>
-            <p class="mt-2 text-sm font-medium">24/7 Support</p>
+    <!-- Trusted Partners Section -->
+    <section class="py-16 bg-gradient-to-b from-white to-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+          <span
+            class="inline-block bg-blue-50 text-blue-800 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider mb-4">
+            Our Trusted Partners
+          </span>
+          <h2 class="text-3xl font-bold text-gray-900 mb-3">Collaborating with Industry Leaders</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            We're proud to work with some of the most respected brands in East Africa
+          </p>
+        </div>
+
+        <!-- Logo Marquee Container -->
+        <div class="relative overflow-hidden py-8">
+
+          <!-- Infinite Marquee -->
+          <div class="flex space-x-12 animate-marquee whitespace-nowrap">
+            <div v-for="(client, index) in [...clientLogos, ...clientLogos]" :key="'first-' + index"
+              class="inline-flex items-center justify-center px-6">
+              <img :src="client.logo" :alt="client.name"
+                class="h-20 w-auto object-contain opacity-80 hover:opacity-100 transition-opacity duration-300"
+                :title="client.name">
+            </div>
           </div>
         </div>
       </div>
@@ -738,74 +790,103 @@ const processSteps = [
       </div>
     </section>
 
-    <!-- CTA Section -->
-    <section id="contact" class="py-20 bg-gray-900 text-white">
-      <div class="container mx-auto px-6">
-        <div class="flex flex-col lg:flex-row gap-12 items-center">
-          <div class="lg:w-1/2">
-            <h2 class="text-4xl font-bold mb-6">Ready to Streamline Your Supply Chain?</h2>
-            <p class="text-xl text-gray-300 mb-8">
+    <!-- CTA Section - Responsive Design -->
+    <section id="contact" class="py-16 md:py-20 bg-gray-900 text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+          <!-- Contact Info Column -->
+          <div class="w-full lg:w-1/2">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">
+              Ready to Streamline<br class="hidden sm:block"> Your Supply Chain?
+            </h2>
+            <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-lg">
               Get a free consultation with our logistics experts today
             </p>
-            <div class="space-y-4">
-              <div class="flex items-center">
-                <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mr-4">
-                  <i class="fas fa-phone-alt"></i>
+
+            <div class="space-y-5 sm:space-y-4">
+              <!-- Phone -->
+              <div class="flex items-start sm:items-center">
+                <div
+                  class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-blue-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 sm:mt-0">
+                  <i class="fas fa-phone-alt text-sm sm:text-base"></i>
                 </div>
                 <div>
-                  <div class="text-sm text-gray-400">Call us 24/7</div>
-                  <div class="text-xl font-bold">+254 725 396 801</div>
+                  <div class="text-xs sm:text-sm text-gray-400">Call us 24/7</div>
+                  <div class="text-lg sm:text-xl font-bold">
+                    <a href="tel:+254725396801" class="hover:text-blue-400 transition-colors">+254 725 396 801</a>
+                  </div>
                 </div>
               </div>
-              <div class="flex items-center">
-                <div class="w-12 h-12 rounded-full bg-green-600 flex items-center justify-center mr-4">
-                  <i class="fas fa-envelope"></i>
+
+              <!-- Email -->
+              <div class="flex items-start sm:items-center">
+                <div
+                  class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-green-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 sm:mt-0">
+                  <i class="fas fa-envelope text-sm sm:text-base"></i>
                 </div>
                 <div>
-                  <div class="text-sm text-gray-400">Email us</div>
-                  <div class="text-xl font-bold">wakafreight@gmail.com</div>
+                  <div class="text-xs sm:text-sm text-gray-400">Email us</div>
+                  <div class="text-lg sm:text-xl font-bold">
+                    <a href="mailto:wakafreight@gmail.com"
+                      class="hover:text-green-400 transition-colors">wakafreight@gmail.com</a>
+                  </div>
                 </div>
               </div>
-              <div class="flex items-center">
-                <div class="w-12 h-12 rounded-full bg-orange-600 flex items-center justify-center mr-4">
-                  <i class="fas fa-map-marker-alt"></i>
+
+              <!-- Address -->
+              <div class="flex items-start sm:items-center">
+                <div
+                  class="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-orange-600 flex items-center justify-center mr-3 sm:mr-4 mt-1 sm:mt-0">
+                  <i class="fas fa-map-marker-alt text-sm sm:text-base"></i>
                 </div>
                 <div>
-                  <div class="text-sm text-gray-400">Head Office</div>
-                  <div class="text-xl font-bold">Nacha Plaza, Nakuru</div>
+                  <div class="text-xs sm:text-sm text-gray-400">Head Office</div>
+                  <div class="text-lg sm:text-xl font-bold">Nacha Plaza, Nakuru</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="lg:w-1/2 sm:w-3/4 bg-white rounded-xl shadow-2xl overflow-hidden">
-            <div class="p-8 text-gray-800">
-              <h3 class="text-2xl font-bold mb-6">Request a Quote</h3>
-              <form class="space-y-4">
-                <div>
-                  <label class="block text-gray-700 mb-2">Name</label>
-                  <input type="text"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                  <label class="block text-gray-700 mb-2">Email</label>
-                  <input type="email"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                </div>
-                <div>
-                  <label class="block text-gray-700 mb-2">Service Needed</label>
-                  <select
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option>Air Freight</option>
-                    <option>Sea Freight</option>
-                    <option>Cross-Border</option>
-                    <option>Customs Clearance</option>
-                  </select>
-                </div>
-                <button type="submit"
-                  class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition duration-300">
-                  Submit Request
-                </button>
-              </form>
+
+          <!-- Form Column -->
+          <div class="w-full lg:w-1/2 mt-8 lg:mt-0">
+            <div class="bg-white rounded-xl shadow-2xl overflow-hidden">
+              <div class="p-6 sm:p-8 text-gray-800">
+                <h3 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">Request a Quote</h3>
+                <form class="space-y-3 sm:space-y-4">
+                  <!-- Name -->
+                  <div>
+                    <label class="block text-sm sm:text-base text-gray-700 mb-1 sm:mb-2">Name</label>
+                    <input type="text" placeholder="Your full name"
+                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                  </div>
+
+                  <!-- Email -->
+                  <div>
+                    <label class="block text-sm sm:text-base text-gray-700 mb-1 sm:mb-2">Email</label>
+                    <input type="email" placeholder="Your email address"
+                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                  </div>
+
+                  <!-- Service Dropdown -->
+                  <div>
+                    <label class="block text-sm sm:text-base text-gray-700 mb-1 sm:mb-2">Service Needed</label>
+                    <select
+                      class="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 appearance-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNoZXZyb24tZG93biI+PHBhdGggZD0ibTYgOSA2IDYgNi02Ii8+PC9zdmc+')] bg-no-repeat bg-[center_right_0.75rem] sm:bg-[center_right_1rem]">
+                      <option>Select a service</option>
+                      <option>Air Freight</option>
+                      <option>Sea Freight</option>
+                      <option>Cross-Border</option>
+                      <option>Customs Clearance</option>
+                    </select>
+                  </div>
+
+                  <!-- Submit Button -->
+                  <button type="submit"
+                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 sm:py-4 px-6 rounded-lg transition duration-300 mt-2 sm:mt-4">
+                    Submit Request
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -828,6 +909,44 @@ const processSteps = [
 
   50% {
     transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+  display: inline-block;
+}
+
+/* Pause animation on hover */
+.group:hover .animate-marquee {
+  animation-play-state: paused;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  @keyframes marquee-mobile {
+    0% {
+      transform: translateX(0);
+    }
+
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .animate-marquee {
+    animation: marquee-mobile 20s linear infinite;
   }
 }
 

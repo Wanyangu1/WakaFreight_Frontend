@@ -172,9 +172,9 @@ export default {
     return {
       socialLinks: [
         { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: '#' },
-        { name: 'Twitter', icon: 'fab fa-twitter', url: '#' },
+        { name: 'Tiktok', icon: 'fab fa-tiktok', url: '#' },
         { name: 'Facebook', icon: 'fab fa-facebook-f', url: '#' },
-        { name: 'YouTube', icon: 'fab fa-youtube', url: '#' }
+        { name: 'Instagram', icon: 'fab fa-instagram', url: '#' }
       ],
       services: [
         { name: 'Air Freight', path: '/services#services', icon: 'fas fa-plane' },
