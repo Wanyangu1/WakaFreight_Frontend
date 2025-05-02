@@ -91,13 +91,6 @@ const clientIndustries = [
   }
 ]
 
-const stats = ref([
-  { value: '200+', label: 'Industry Clients', icon: 'building' },
-  { value: '15+', label: 'Years Experience', icon: 'award' },
-  { value: '98%', label: 'Satisfaction Rate', icon: 'smile' },
-  { value: '24/7', label: 'Support Available', icon: 'headset' }
-])
-
 const caseStudies = ref([
   {
     title: 'Automotive Parts Distributor',
@@ -130,10 +123,10 @@ const toggleIndustry = (industryId) => {
   <section
     class="relative text-white h-[70vh] min-h-[400px] lg:h-[90vh] lg:min-h-[600px] flex items-center justify-center">
     <div class="absolute inset-0 bg-black/60 z-0">
-      <div class="absolute inset-0 bg-black/60 z-0">
-        <img
-          src="https://images.unsplash.com/photo-1604339454409-701c5278c546?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
-          alt="Shipping containers at port" class="w-full h-full object-cover">
+      <div class="absolute inset-0 z-0">
+        <img src="@/assets/images/services/industry.jpg" alt="Freight containers at port"
+          class="w-full h-full object-cover" data-speed="0.6">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
       </div>
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -155,22 +148,6 @@ const toggleIndustry = (industryId) => {
         class="inline-flex items-center justify-center bg-white text-blue-800 hover:bg-gray-100 font-bold py-4 px-8 rounded-full shadow-lg transition-all duration-300 hover:scale-105">
         Explore Solutions <i class="fas fa-chevron-down ml-2"></i>
       </a>
-    </div>
-  </section>
-
-  <!-- Industry Stats with Icons -->
-  <section class="py-16 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div v-for="stat in stats" :key="stat.label"
-          class="text-center p-6 rounded-xl bg-gradient-to-br from-blue-50 to-white shadow-sm hover:shadow-md transition-shadow">
-          <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <i :class="`fas fa-${stat.icon} text-blue-600 text-3xl`"></i>
-          </div>
-          <p class="text-5xl font-bold text-blue-800 mb-2">{{ stat.value }}</p>
-          <p class="text-gray-600 font-medium">{{ stat.label }}</p>
-        </div>
-      </div>
     </div>
   </section>
 

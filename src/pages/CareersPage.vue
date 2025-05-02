@@ -1,56 +1,33 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import TheNavbar from '@/components/TheNavbar.vue';
 import TheFooter from '@/components/TheFooter.vue';
 
-// Current job openings (would normally come from backend API)
-const jobOpenings = ref([
-  {
-    id: 1,
-    position: 'Logistics Coordinator',
-    type: 'Full-time',
-    location: 'Nairobi, Kenya',
-    department: 'Operations',
-    posted: '2023-11-15',
-    description: 'Coordinate shipments, manage documentation, and liaise with clients and carriers to ensure smooth logistics operations.',
-    requirements: [
-      'Bachelor\'s degree in Logistics or related field',
-      '2+ years experience in freight forwarding',
-      'Strong organizational skills',
-      'Knowledge of customs procedures'
-    ]
-  },
-  {
-    id: 2,
-    position: 'Customs Clearance Officer',
-    type: 'Full-time',
-    location: 'Mombasa, Kenya',
-    department: 'Customs',
-    posted: '2023-11-10',
-    description: 'Prepare and submit customs documentation, calculate duties, and ensure compliance with KRA regulations.',
-    requirements: [
-      'Certified Customs Agent',
-      '3+ years clearance experience',
-      'Excellent knowledge of HS codes',
-      'Attention to detail'
-    ]
-  },
-  {
-    id: 3,
-    position: 'Trucking Operations Manager',
-    type: 'Full-time',
-    location: 'Nakuru, Kenya',
-    department: 'Transport',
-    posted: '2023-11-05',
-    description: 'Oversee cross-border trucking operations, manage fleet, and optimize routing for efficiency.',
-    requirements: [
-      '5+ years transport management',
-      'Knowledge of East African routes',
-      'Fleet management experience',
-      'Problem-solving skills'
-    ]
+const jobOpenings = ref([]);
+const isLoading = ref(true);
+const error = ref(null);
+const activeJob = ref(null);
+
+// Fetch jobs from API
+const fetchJobs = async () => {
+  try {
+    isLoading.value = true;
+    const response = await fetch('http://localhost:8000/api/jobs/');
+    if (!response.ok) {
+      throw new Error('Failed to fetch job openings');
+    }
+    jobOpenings.value = await response.json();
+  } catch (err) {
+    error.value = err.message;
+    console.error('Error fetching jobs:', err);
+  } finally {
+    isLoading.value = false;
   }
-]);
+};
+
+onMounted(() => {
+  fetchJobs();
+});
 
 // Attachment program details
 const internshipProgram = {
@@ -71,8 +48,6 @@ const internshipProgram = {
   applicationProcess: 'Submit your documents via email to careers@wakafreight.com'
 };
 
-const activeJob = ref(null);
-
 const toggleJobDetails = (jobId) => {
   activeJob.value = activeJob.value === jobId ? null : jobId;
 };
@@ -85,9 +60,15 @@ const formatDate = (dateString) => {
 
 <template>
   <TheNavbar />
+
   <!-- Hero Section -->
   <section class="relative bg-gradient-to-r from-blue-900 to-blue-800 text-white py-24 md:py-32">
     <div class="absolute inset-0 bg-black/40 z-0"></div>
+    <div class="absolute inset-0 z-0">
+      <img src="@/assets/images/services/careers.jpg" alt="Freight containers at port"
+        class="w-full h-full object-cover" data-speed="0.6">
+      <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
+    </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <div class="text-center">
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Build Your Career in Logistics</h1>
@@ -111,11 +92,28 @@ const formatDate = (dateString) => {
         </p>
       </div>
 
+      <!-- Loading State -->
+      <div v-if="isLoading" class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
+      </div>
+
+      <!-- Error State -->
+      <div v-else-if="error" class="text-center py-12 bg-red-50 rounded-lg">
+        <div class="mx-auto w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-4">
+          <i class="fas fa-exclamation-triangle text-red-600 text-2xl"></i>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-2">Error Loading Jobs</h3>
+        <p class="text-gray-600 mb-4">{{ error }}</p>
+        <button @click="fetchJobs" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg">
+          <i class="fas fa-sync-alt mr-2"></i> Try Again
+        </button>
+      </div>
+
       <!-- Job Listings -->
-      <div class="space-y-4">
+      <div v-else class="space-y-4">
         <div v-for="job in jobOpenings" :key="job.id"
-          class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-md transition-all"
-          :class="{ 'ring-2 ring-blue-500': activeJob === job.id }">
+          class="border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-300"
+          :class="{ 'ring-2 ring-blue-500 shadow-md': activeJob === job.id }">
           <!-- Job Header -->
           <div class="bg-gray-50 px-6 py-4 cursor-pointer" @click="toggleJobDetails(job.id)">
             <div class="flex flex-col md:flex-row md:items-center md:justify-between">
@@ -145,10 +143,10 @@ const formatDate = (dateString) => {
           </div>
 
           <!-- Job Details -->
-          <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 max-h-0"
-            enter-to-class="opacity-100 max-h-screen" leave-active-class="transition ease-in duration-150"
-            leave-from-class="opacity-100 max-h-screen" leave-to-class="opacity-0 max-h-0">
-            <div v-show="activeJob === job.id" class="overflow-hidden">
+          <transition enter-active-class="transition ease-out duration-300" enter-from-class="opacity-0 max-h-0"
+            enter-to-class="opacity-100 max-h-[1000px]" leave-active-class="transition ease-in duration-200"
+            leave-from-class="opacity-100 max-h-[1000px]" leave-to-class="opacity-0 max-h-0">
+            <div v-show="activeJob === job.id">
               <div class="p-6 border-t border-gray-200">
                 <div class="grid md:grid-cols-3 gap-8">
                   <div class="md:col-span-2">
@@ -164,30 +162,34 @@ const formatDate = (dateString) => {
                     </ul>
                   </div>
 
-                  <div class="bg-blue-50 border border-blue-100 rounded-lg p-6 h-fit">
+                  <div class="bg-blue-50 border border-blue-100 rounded-lg p-6 h-fit sticky top-6">
                     <h4 class="text-lg font-semibold text-blue-800 mb-4">How to Apply</h4>
                     <p class="text-gray-700 mb-4">
                       To apply for this position, please email the following documents to
                       <a href="mailto:careers@wakafreight.com"
-                        class="text-blue-600 font-medium">careers@wakafreight.com</a>:
+                        class="text-blue-600 font-medium hover:underline">careers@wakafreight.com</a>:
                     </p>
                     <ul class="space-y-2 mb-6">
                       <li class="flex items-start">
                         <i class="fas fa-file-alt text-blue-500 mt-1 mr-2"></i>
-                        <span>Updated CV/Resume</span>
+                        <span class="text-gray-700">Updated CV/Resume</span>
                       </li>
                       <li class="flex items-start">
                         <i class="fas fa-file-certificate text-blue-500 mt-1 mr-2"></i>
-                        <span>Academic certificates</span>
+                        <span class="text-gray-700">Academic certificates</span>
                       </li>
                       <li class="flex items-start">
                         <i class="fas fa-id-card text-blue-500 mt-1 mr-2"></i>
-                        <span>Professional certifications (if any)</span>
+                        <span class="text-gray-700">Professional certifications (if any)</span>
                       </li>
                     </ul>
                     <p class="text-sm text-gray-500">
                       Use the job title as the email subject. Only shortlisted candidates will be contacted.
                     </p>
+                    <button
+                      class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                      Apply Now
+                    </button>
                   </div>
                 </div>
               </div>
@@ -196,7 +198,7 @@ const formatDate = (dateString) => {
         </div>
 
         <!-- No Jobs Available -->
-        <div v-if="jobOpenings.length === 0" class="text-center py-12">
+        <div v-if="!isLoading && jobOpenings.length === 0" class="text-center py-12">
           <div class="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
             <i class="fas fa-search text-blue-600 text-2xl"></i>
           </div>
@@ -255,25 +257,26 @@ const formatDate = (dateString) => {
                 <h5 class="font-medium text-gray-900 mb-2">How to Apply:</h5>
                 <p class="text-gray-600 mb-4">
                   Email the following documents to
-                  <a href="mailto:careers@wakafreight.com" class="text-blue-600 font-medium">careers@wakafreight.com</a>
+                  <a href="mailto:careers@wakafreight.com"
+                    class="text-blue-600 font-medium hover:underline">careers@wakafreight.com</a>
                   with subject "Attachment Application":
                 </p>
                 <ul class="space-y-2 mb-6">
                   <li class="flex items-start">
                     <i class="fas fa-file-alt text-blue-500 mt-1 mr-2"></i>
-                    <span>Cover letter</span>
+                    <span class="text-gray-700">Cover letter</span>
                   </li>
                   <li class="flex items-start">
                     <i class="fas fa-file text-blue-500 mt-1 mr-2"></i>
-                    <span>Updated CV</span>
+                    <span class="text-gray-700">Updated CV</span>
                   </li>
                   <li class="flex items-start">
                     <i class="fas fa-certificate text-blue-500 mt-1 mr-2"></i>
-                    <span>Academic transcripts</span>
+                    <span class="text-gray-700">Academic transcripts</span>
                   </li>
                   <li class="flex items-start">
                     <i class="fas fa-id-card text-blue-500 mt-1 mr-2"></i>
-                    <span>National ID copy</span>
+                    <span class="text-gray-700">National ID copy</span>
                   </li>
                 </ul>
 
@@ -283,6 +286,10 @@ const formatDate = (dateString) => {
                     Applications are accepted year-round. Intakes occur quarterly in January, April, July, and October.
                   </p>
                 </div>
+                <button
+                  class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
+                  Apply for Attachment
+                </button>
               </div>
             </div>
           </div>
@@ -300,7 +307,8 @@ const formatDate = (dateString) => {
       </div>
 
       <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors">
+        <div
+          class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors hover:shadow-lg">
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600 mx-auto">
             <i class="fas fa-chart-line text-2xl"></i>
           </div>
@@ -310,7 +318,8 @@ const formatDate = (dateString) => {
           </p>
         </div>
 
-        <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors">
+        <div
+          class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors hover:shadow-lg">
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600 mx-auto">
             <i class="fas fa-globe-africa text-2xl"></i>
           </div>
@@ -320,7 +329,8 @@ const formatDate = (dateString) => {
           </p>
         </div>
 
-        <div class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors">
+        <div
+          class="bg-gray-50 p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-colors hover:shadow-lg">
           <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 text-blue-600 mx-auto">
             <i class="fas fa-users text-2xl"></i>
           </div>
@@ -342,7 +352,7 @@ const formatDate = (dateString) => {
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
         <a href="mailto:hr@wakafreight.com"
-          class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors">
+          class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors hover:shadow-xl">
           <i class="fas fa-envelope mr-2"></i> Email HR
         </a>
         <a href="tel:+254700000000"
@@ -392,5 +402,14 @@ const formatDate = (dateString) => {
   .job-type-badges {
     margin-top: 0.5rem;
   }
+}
+
+/* Animation for the apply buttons */
+button {
+  transition: all 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
 }
 </style>

@@ -479,7 +479,6 @@ const clientLogos = ref([
     <!-- Enhanced Stats Section -->
     <section class="py-6 bg-gradient-to-r from-blue-900 to-blue-800 text-white relative overflow-hidden">
       <div class="absolute inset-0 opacity-10">
-        <div class="absolute inset-0 bg-[url('@/assets/images/pattern.png')] bg-repeat bg-[size:200px]"></div>
       </div>
 
       <div class="container mx-auto px-6 relative z-10">

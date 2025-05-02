@@ -8,14 +8,15 @@ const formData = ref({
   name: '',
   email: '',
   phone: '',
-  shipmentNumber: '',
+  service: '',
   message: ''
 });
 
 const formMessage = ref('');
 const alertType = ref('');
+const isSubmitting = ref(false);
 
-const submitForm = () => {
+const submitForm = async () => {
   // Form validation
   if (!formData.value.name || !formData.value.email || !formData.value.message) {
     formMessage.value = 'Please fill in all required fields';
@@ -23,22 +24,70 @@ const submitForm = () => {
     return;
   }
 
-  // Submit logic would go here
-  formMessage.value = 'Your message has been sent successfully!';
-  alertType.value = 'success';
+  isSubmitting.value = true;
 
-  // Reset form
-  setTimeout(() => {
+  try {
+    const response = await fetch('http://localhost:8000/api/contact/submit/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCookie('csrftoken') // Only needed if using Django CSRF protection
+      },
+      body: JSON.stringify(formData.value)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit form');
+    }
+
+    const data = await response.json();
+    if (data.error) {
+      formMessage.value = data.error;
+      alertType.value = 'error';
+      return;
+    }
+
+    formMessage.value = 'Your message has been sent successfully!';
+    alertType.value = 'success';
+
+    // Reset form
     formData.value = {
       name: '',
       email: '',
       phone: '',
-      shipmentNumber: '',
+      service: '',
       message: ''
     };
-    formMessage.value = '';
-  }, 3000);
+
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    formMessage.value = 'There was an error submitting your message. Please try again.';
+    alertType.value = 'error';
+  } finally {
+    isSubmitting.value = false;
+
+    // Clear message after 5 seconds
+    setTimeout(() => {
+      formMessage.value = '';
+    }, 5000);
+  }
 };
+
+// Helper function to get CSRF token (only needed if using Django CSRF protection)
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 
 // Branch locations
 const branches = [
@@ -54,7 +103,7 @@ const branches = [
     address: 'ICD Embakasi, Nairobi, P.O. Box 70343-00400',
     phone: '+254 722 123 456',
     email: 'wakafreight@gmail.com',
-    map: 'https://maps.google.com/maps?q=KeMu+Towers+Nairobi&output=embed'
+    map: 'https://maps.google.com/maps?q=ICD+Embakasi+Nairobi&output=embed'
   },
 ];
 
@@ -76,15 +125,6 @@ const operationalHours = [
       <img src="@/assets/images/services/contact.jpg" alt="Happy clients" class="w-full h-full object-cover">
       <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/60"></div>
     </div>
-    <!-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="text-center">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Contact Our Logistics Team</h1>
-        <div class="w-24 h-1 bg-blue-400 mx-auto mb-6"></div>
-        <p class="text-xl text-blue-100 max-w-3xl mx-auto">
-          Get in touch with our freight experts for shipment tracking, customs clearance, or any logistics inquiries.
-        </p>
-      </div>
-    </div> -->
   </div>
 
   <!-- Main Content -->
@@ -137,15 +177,18 @@ const operationalHours = [
                 </div>
               </div>
 
-              <!-- Shipment Number -->
-              <div class="relative">
-                <label for="shipment" class="block text-sm font-medium text-gray-700 mb-1">Shipment Number (if
-                  applicable)</label>
-                <div class="relative">
-                  <i class="fas fa-barcode absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
-                  <input type="text" id="shipment" v-model="formData.shipmentNumber" placeholder="WF-123456"
-                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
-                </div>
+              <!-- Service Dropdown -->
+              <div>
+                <label for="service" class="block text-sm font-medium text-gray-700 mb-1">Service Type</label>
+                <select id="service" v-model="formData.service"
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                  <option disabled value="">Select a service</option>
+                  <option value="Freight Forwarding">Freight Forwarding</option>
+                  <option value="Customs Clearance">Customs Clearance</option>
+                  <option value="Warehousing">Warehousing</option>
+                  <option value="Transportation">Transportation</option>
+                  <option value="Other">Other</option>
+                </select>
               </div>
             </div>
 
@@ -158,9 +201,14 @@ const operationalHours = [
             </div>
 
             <!-- Submit Button -->
-            <button type="submit"
-              class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 flex items-center justify-center">
-              <i class="fas fa-paper-plane mr-2"></i> Send Inquiry
+            <button type="submit" :disabled="isSubmitting"
+              class="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white font-bold py-3 px-6 rounded-lg shadow-lg hover:shadow-xl hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed">
+              <span v-if="isSubmitting">
+                <i class="fas fa-spinner fa-spin mr-2"></i> Sending...
+              </span>
+              <span v-else>
+                <i class="fas fa-paper-plane mr-2"></i> Send Inquiry
+              </span>
             </button>
           </form>
         </div>
