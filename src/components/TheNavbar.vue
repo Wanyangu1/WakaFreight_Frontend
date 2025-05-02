@@ -6,6 +6,13 @@ const isScrolled = ref(false);
 const isMobile = ref(false);
 const activeDropdown = ref(null);
 
+// Properly defined reactive contactInfo
+const contactInfo = ref({
+  phone: '+254 725 396 801',
+  email: 'wakafreight@gmail.com',
+  address: 'Nacha Plaza, Nakuru'
+});
+
 const topBarLinks = [
   {
     name: 'Careers',
@@ -76,12 +83,6 @@ const navLinks = [
   },
 ];
 
-const contactInfo = {
-  phone: '+254 725 396 801',
-  email: 'wakafreight@gmail.com',
-  address: 'Nacha Plaza, Nakuru'
-};
-
 const toggleDropdown = (index) => {
   activeDropdown.value = activeDropdown.value === index ? null : index;
 };
@@ -111,54 +112,54 @@ onUnmounted(() => {
 
 <template>
   <!-- Top Utility Bar -->
-  <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white text-sm border-b border-blue-700/50">
-    <div class="container mx-auto px-4 py-2 flex flex-row justify-between items-center flex-wrap">
+  <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white text-xs sm:text-sm border-b border-blue-700/50">
+    <div class="container mx-auto px-3 sm:px-4 py-1 sm:py-2 flex flex-row justify-between items-center flex-wrap">
       <!-- Quick Links -->
-      <div class="flex items-center space-x-6 mb-2 md:mb-0">
+      <div class="flex items-center space-x-3 sm:space-x-6">
         <div class="flex items-center group">
           <div
-            class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-2 group-hover:bg-blue-600/50 transition-colors">
-            <i class="fas fa-clock text-blue-300 text-sm"></i>
+            class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-blue-600/50 transition-colors">
+            <i class="fas fa-clock text-blue-300 text-xs sm:text-sm"></i>
           </div>
-          <span class="text-sm">Mon-Fri: 8AM - 5PM</span>
+          <span class="xs:inline">Mon-Fri: 8AM-5PM</span>
         </div>
-        <div class="hidden md:flex items-center group">
+        <div class="hidden sm:flex items-center group">
           <div
-            class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-2 group-hover:bg-blue-600/50 transition-colors">
-            <i class="fas fa-phone-alt text-blue-300 text-sm"></i>
+            class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-blue-600/50 transition-colors">
+            <i class="fas fa-phone-alt text-blue-300 text-xs sm:text-sm"></i>
           </div>
-          <span class="text-sm">{{ contactInfo.phone }}</span>
+          <span class="hidden md:inline">{{ contactInfo?.phone || '+254 XXX XXX XXX' }}</span>
         </div>
       </div>
 
       <!-- Action Links -->
-      <div class="flex items-center space-x-4">
+      <div class="flex items-center space-x-2 sm:space-x-4">
         <a v-for="(link, index) in topBarLinks" :key="index" :href="link.path"
           class="flex items-center group transition-all duration-200">
           <div class="relative">
             <div
-              class="w-8 h-8 rounded-lg bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-2 group-hover:bg-blue-600/50 transition-colors">
-              <i :class="`${link.icon} text-blue-300 text-sm`"></i>
+              class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-blue-600/50 transition-colors">
+              <i :class="`${link.icon} text-blue-300 text-xs sm:text-sm`"></i>
             </div>
             <span v-if="link.badge"
-              class="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-1 rounded-full border border-white">
+              class="absolute -top-1 -right-1 bg-green-500 text-white text-[10px] px-0.5 rounded-full border border-white">
               {{ link.badge }}
             </span>
           </div>
-          <span class="hidden sm:inline text-sm group-hover:text-blue-300">{{ link.name }}</span>
+          <span class="hidden sm:inline group-hover:text-blue-300">{{ link.name }}</span>
         </a>
-        <div class="hidden md:flex items-center space-x-3 ml-4">
+        <div class="hidden sm:flex items-center space-x-1 sm:space-x-3 ml-2 sm:ml-4">
           <a href="#"
-            class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
-            <i class="fab fa-linkedin-in text-sm"></i>
+            class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
+            <i class="fab fa-linkedin-in text-xs sm:text-sm"></i>
           </a>
           <a href="#"
-            class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
-            <i class="fab fa-tiktok text-sm"></i>
+            class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
+            <i class="fab fa-tiktok text-xs sm:text-sm"></i>
           </a>
           <a href="#"
-            class="w-8 h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
-            <i class="fab fa-facebook-f text-sm"></i>
+            class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
+            <i class="fab fa-facebook-f text-xs sm:text-sm"></i>
           </a>
         </div>
       </div>
@@ -167,17 +168,31 @@ onUnmounted(() => {
 
   <!-- Main Navigation -->
   <nav class="sticky top-0 z-50 transition-all duration-300"
-    :class="isScrolled ? 'bg-gray-50 shadow-lg py-0 border-b border-gray-100' : 'bg-white/95 backdrop-blur-sm py-2 border-b border-white/20'">
-    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-4">
-      <div class="flex justify-between items-center h-20">
+    :class="isScrolled ? 'bg-gray-50 shadow-lg py-0 border-b border-gray-100' : 'bg-white/95 backdrop-blur-sm py-1 sm:py-2 border-b border-white/20'">
+    <div class="max-w-7xl mx-auto px-2 sm:px-4">
+      <div class="flex justify-between items-center h-10 sm:h-14">
         <!-- Logo -->
         <div class="flex-shrink-0 flex items-center">
           <a href="/" class="flex items-center group">
-            <div class="ml-3">
-              <img src="@/assets/images/logos/wakalogo.png" alt="Logo" class="h-45 w-auto" />
+            <div class="relative">
+              <div
+                class="flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 text-white transform group-hover:rotate-6 transition-transform duration-300">
+                <i class="fas fa-shipping-fast text-xl sm:text-2xl"></i>
+              </div>
+              <div
+                class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-400 border-2 border-white flex items-center justify-center">
+                <i class="fas fa-check text-white text-[10px] sm:text-xs"></i>
+              </div>
+            </div>
+            <div class="ml-2 sm:ml-3">
+              <h1 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
+                WakaFreight
+              </h1>
+              <p class="text-[10px] sm:text-xs text-gray-500 -mt-1">FORWARDERS LIMITED</p>
             </div>
           </a>
         </div>
+
 
         <!-- Desktop Navigation -->
         <div class="hidden lg:flex items-center space-x-1">
@@ -213,7 +228,7 @@ onUnmounted(() => {
                 <div class="p-4 grid gap-4" :class="{ 'grid-cols-2': link.name === 'Services' }">
                   <a v-for="(item, itemIndex) in link.dropdown" :key="itemIndex" :href="item.path || '#'"
                     class="flex items-start p-3 rounded-lg hover:bg-blue-50 transition-colors group">
-                    <div class="flex-shrink-0 mt-1">
+                    <div class="flex-shrink-0 mt-0">
                       <div
                         class="w-10 h-10 rounded-lg bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-600 group-hover:bg-blue-200 transition-colors">
                         <i :class="`${item.icon}`"></i>
@@ -242,13 +257,13 @@ onUnmounted(() => {
         </div>
 
         <!-- CTA Button -->
-        <div class="hidden lg:flex items-center ml-6">
+        <div class="hidden lg:flex items-center ml-4 sm:ml-6">
           <a href="/contact">
             <button
-              class="flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 group">
+              class="flex items-center px-2 py-1 sm:px-3 sm:py-2 border border-transparent text-sm font-medium rounded-lg sm:rounded-xl text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 shadow-md transition-all duration-300 hover:shadow-lg transform hover:-translate-y-0.5 group">
               <div
-                class="w-8 h-8 rounded-lg bg-white/20 border border-white/30 flex items-center justify-center mr-2 group-hover:bg-white/30 transition-colors">
-                <i class="fas fa-phone text-white"></i>
+                class="w-6 h-6 sm:w-8 sm:h-8 rounded-md sm:rounded-lg bg-white/20 border border-white/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-white/30 transition-colors">
+                <i class="fas fa-phone text-white text-xs sm:text-sm"></i>
               </div>
               <span>Contact Us</span>
             </button>
@@ -258,11 +273,11 @@ onUnmounted(() => {
         <!-- Mobile menu button -->
         <div class="lg:hidden flex items-center">
           <button @click="isNavbarCollapsed = !isNavbarCollapsed"
-            class="inline-flex items-center justify-center p-3 rounded-xl text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none transition-colors relative"
+            class="inline-flex items-center justify-center p-2 rounded-lg text-gray-700 hover:text-blue-600 hover:bg-gray-100 focus:outline-none transition-colors relative"
             :aria-expanded="!isNavbarCollapsed">
             <span class="sr-only">Open main menu</span>
-            <div class="w-8 h-8 flex items-center justify-center">
-              <i :class="isNavbarCollapsed ? 'fas fa-bars text-xl' : 'fas fa-times text-xl'"></i>
+            <div class="w-6 h-6 flex items-center justify-center">
+              <i :class="isNavbarCollapsed ? 'fas fa-bars text-lg' : 'fas fa-times text-lg'"></i>
             </div>
           </button>
         </div>
@@ -274,17 +289,17 @@ onUnmounted(() => {
       enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-150"
       leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
       <div v-if="!isNavbarCollapsed && isMobile"
-        class="lg:hidden fixed inset-x-0 top-28 bg-white shadow-2xl z-40 mx-4 rounded-xl py-4 px-6 border border-gray-100">
-        <div class="space-y-1">
+        class="lg:hidden fixed inset-x-0 top-20 bg-white shadow-xl z-40 mx-3 rounded-lg py-2 px-4 border border-gray-100">
+        <div class="space-y-0.5">
           <a v-for="(link, index) in navLinks" :key="index" :href="link.path"
-            class="flex items-center justify-between px-4 py-3 rounded-xl text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+            class="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
             @click="!link.dropdown ? isNavbarCollapsed = true : null">
             <div class="flex items-center">
               <div
-                class="w-8 h-8 rounded-lg bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-600 mr-3">
-                <i :class="`${link.icon}`"></i>
+                class="w-6 h-6 rounded-md bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-600 mr-2">
+                <i :class="`${link.icon} text-xs`"></i>
               </div>
-              {{ link.name }}
+              <span class="text-sm">{{ link.name }}</span>
             </div>
             <i v-if="link.dropdown"
               class="fas fa-chevron-down text-xs transition-transform duration-200 ml-2 text-gray-400"
@@ -297,12 +312,12 @@ onUnmounted(() => {
               enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100"
               leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100"
               leave-to-class="transform opacity-0 scale-95">
-              <div v-show="activeDropdown === index" class="ml-12 pl-4 border-l-2 border-blue-200 space-y-3 my-3">
+              <div v-show="activeDropdown === index" class="ml-10 pl-3 border-l-2 border-blue-200 space-y-2 my-2">
                 <a v-for="(item, itemIndex) in link.dropdown" :key="itemIndex" :href="item.path || '#'"
-                  class="block px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors flex items-center"
+                  class="block px-2 py-1.5 rounded-md text-xs font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors flex items-center"
                   @click="isNavbarCollapsed = true">
-                  <div class="w-6 h-6 rounded-md bg-blue-100 flex items-center justify-center text-blue-600 mr-3">
-                    <i :class="`${item.icon} text-xs`"></i>
+                  <div class="w-5 h-5 rounded-sm bg-blue-100 flex items-center justify-center text-blue-600 mr-2">
+                    <i :class="`${item.icon} text-[10px]`"></i>
                   </div>
                   {{ item.name }}
                 </a>
@@ -311,29 +326,29 @@ onUnmounted(() => {
           </div>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-gray-200">
+        <div class="mt-4 pt-3 border-t border-gray-200">
           <a href="/contact"
-            class="w-full flex items-center justify-center px-3 py-3 border border-transparent rounded-xl shadow-sm text-base font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 transition-all duration-300"
+            class="w-full flex items-center justify-center px-2 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 transition-all duration-300"
             @click="isNavbarCollapsed = true">
-            <div class="w-8 h-8 rounded-lg bg-white/20 border border-white/30 flex items-center justify-center mr-3">
-              <i class="fas fa-paper-plane text-white"></i>
+            <div class="w-6 h-6 rounded-md bg-white/20 border border-white/30 flex items-center justify-center mr-2">
+              <i class="fas fa-paper-plane text-white text-xs"></i>
             </div>
             Contact Us
           </a>
         </div>
 
-        <div class="mt-6 pt-4 border-t border-gray-200 flex justify-center space-x-6">
+        <div class="mt-4 pt-3 border-t border-gray-200 flex justify-center space-x-4">
           <a href="#"
-            class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            <i class="fab fa-linkedin-in"></i>
+            class="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+            <i class="fab fa-linkedin-in text-sm"></i>
           </a>
           <a href="#"
-            class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            <i class="fab fa-twitter"></i>
+            class="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+            <i class="fab fa-twitter text-sm"></i>
           </a>
           <a href="#"
-            class="w-10 h-10 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
-            <i class="fab fa-facebook-f"></i>
+            class="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+            <i class="fab fa-facebook-f text-sm"></i>
           </a>
         </div>
       </div>
@@ -429,5 +444,35 @@ onUnmounted(() => {
 /* Beautiful border radius */
 .rounded-xl {
   border-radius: 12px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .rounded-xl {
+    border-radius: 8px;
+  }
+
+  /* Make dropdowns take full width on very small screens */
+  .dropdown-menu {
+    width: 100vw;
+    left: 0 !important;
+    margin-left: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+/* Smoother transitions for mobile menu */
+.mobile-menu-enter-active {
+  transition: all 0.25s ease-out;
+}
+
+.mobile-menu-leave-active {
+  transition: all 0.2s ease-in;
+}
+
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

@@ -78,7 +78,7 @@ const activeClient = ref(null)
   <TheNavbar />
 
   <!-- Hero Section -->
-  <section class="relative text-white h-[70vh] min-h-[400px] lg:h-[90vh] lg:min-h-[600px] flex items-center">
+  <section class="relative text-white h-[90vh] lg:min-h-[600px] flex items-center">
     <div class="absolute inset-0 bg-black/50 z-0">
       <img src="@/assets/images/services/bg1.jpg" alt="Logistics operations" class="w-full h-full object-cover">
       <div class="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-blue-800/60"></div>
@@ -86,9 +86,8 @@ const activeClient = ref(null)
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
       <div class="text-center">
         <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
-          <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-white">Trusted Logistics
-            Partner</span><br>
-          For East Africa's Leading Businesses
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-white">
+            East Africa's Leading Logistics patner</span>
         </h1>
         <div class="w-32 h-1.5 bg-gradient-to-r from-blue-400 to-blue-600 mx-auto mb-8 rounded-full"></div>
         <p class="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto leading-relaxed mb-10">

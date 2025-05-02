@@ -3,10 +3,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
         <!-- Company Info & Logo -->
-        <div class="space-y-6">
+        <div class="space-y-4">
           <div class="flex items-center space-x-4">
             <div>
-              <img src="@/assets/images/logo6.png" alt="WakaFreight Logo" class="h-18 w-46">
+              <img src="@/assets/images/logos/wakalogo.png" alt="WakaFreight Logo" class="h-34 w-40">
             </div>
           </div>
           <p class="text-gray-300 text-sm leading-relaxed">

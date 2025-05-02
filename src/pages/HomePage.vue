@@ -356,9 +356,8 @@ const clientLogos = ref([
     <TheNavbar />
 
     <!-- Enhanced Hero Carousel -->
-    <section class="relative h-[70vh] min-h-[400px] lg:h-[90vh] lg:min-h-[600px] overflow-hidden"
-      @mouseenter="pauseCarousel" @mouseleave="resumeCarousel" @touchstart="handleTouchStart"
-      @touchend="handleTouchEnd">
+    <section class="relative h-[90vh] lg:min-h-[600px] overflow-hidden" @mouseenter="pauseCarousel"
+      @mouseleave="resumeCarousel" @touchstart="handleTouchStart" @touchend="handleTouchEnd">
       <!-- Slides -->
       <div class="relative h-full w-full">
         <div v-for="(slide, index) in heroSlides" :key="index"
@@ -485,7 +484,7 @@ const clientLogos = ref([
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div v-for="(stat, index) in [
             { value: 24, label: 'Years Experience', },
-            { value: 1500, label: 'Monthly Shipments' },
+            { value: 1500, label: 'Yearly Shipments' },
             { value: 12, label: 'Border Stations' },
             { value: 98, suffix: '%', label: 'Client Retention' }
           ]" :key="index" class="stat-item opacity-0 translate-y-10 transition-all duration-500"

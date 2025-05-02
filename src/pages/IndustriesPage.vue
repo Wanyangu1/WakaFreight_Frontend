@@ -120,8 +120,7 @@ const toggleIndustry = (industryId) => {
   <TheNavbar />
 
   <!-- Hero Section with Video Background -->
-  <section
-    class="relative text-white h-[70vh] min-h-[400px] lg:h-[90vh] lg:min-h-[600px] flex items-center justify-center">
+  <section class="relative text-white h-[90vh] lg:min-h-[600px] flex items-center justify-center">
     <div class="absolute inset-0 bg-black/60 z-0">
       <div class="absolute inset-0 z-0">
         <img src="@/assets/images/services/industry.jpg" alt="Freight containers at port"
