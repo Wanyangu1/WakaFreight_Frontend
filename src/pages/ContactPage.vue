@@ -1,7 +1,7 @@
 <script setup>
-import { ref } from 'vue';
-import TheNavbar from '@/components/TheNavbar.vue';
-import TheFooter from '@/components/TheFooter.vue';
+import { ref } from 'vue'
+import TheNavbar from '@/components/TheNavbar.vue'
+import TheFooter from '@/components/TheFooter.vue'
 
 // Form handling
 const formData = ref({
@@ -9,46 +9,46 @@ const formData = ref({
   email: '',
   phone: '',
   service: '',
-  message: ''
-});
+  message: '',
+})
 
-const formMessage = ref('');
-const alertType = ref('');
-const isSubmitting = ref(false);
+const formMessage = ref('')
+const alertType = ref('')
+const isSubmitting = ref(false)
 
 const submitForm = async () => {
   // Form validation
   if (!formData.value.name || !formData.value.email || !formData.value.message) {
-    formMessage.value = 'Please fill in all required fields';
-    alertType.value = 'error';
-    return;
+    formMessage.value = 'Please fill in all required fields'
+    alertType.value = 'error'
+    return
   }
 
-  isSubmitting.value = true;
+  isSubmitting.value = true
 
   try {
-    const response = await fetch('http://localhost:8000/api/contact/submit/', {
+    const response = await fetch('https://backend.wakafreightfowardersltd.co.ke/api/contact/submit/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-CSRFToken': getCookie('csrftoken') // Only needed if using Django CSRF protection
+        'X-CSRFToken': getCookie('csrftoken'), // Only needed if using Django CSRF protection
       },
-      body: JSON.stringify(formData.value)
-    });
+      body: JSON.stringify(formData.value),
+    })
 
     if (!response.ok) {
-      throw new Error('Failed to submit form');
+      throw new Error('Failed to submit form')
     }
 
-    const data = await response.json();
+    const data = await response.json()
     if (data.error) {
-      formMessage.value = data.error;
-      alertType.value = 'error';
-      return;
+      formMessage.value = data.error
+      alertType.value = 'error'
+      return
     }
 
-    formMessage.value = 'Your message has been sent successfully!';
-    alertType.value = 'success';
+    formMessage.value = 'Your message has been sent successfully!'
+    alertType.value = 'success'
 
     // Reset form
     formData.value = {
@@ -56,37 +56,36 @@ const submitForm = async () => {
       email: '',
       phone: '',
       service: '',
-      message: ''
-    };
-
+      message: '',
+    }
   } catch (error) {
-    console.error('Error submitting form:', error);
-    formMessage.value = 'There was an error submitting your message. Please try again.';
-    alertType.value = 'error';
+    console.error('Error submitting form:', error)
+    formMessage.value = 'There was an error submitting your message. Please try again.'
+    alertType.value = 'error'
   } finally {
-    isSubmitting.value = false;
+    isSubmitting.value = false
 
     // Clear message after 5 seconds
     setTimeout(() => {
-      formMessage.value = '';
-    }, 5000);
+      formMessage.value = ''
+    }, 5000)
   }
-};
+}
 
 // Helper function to get CSRF token (only needed if using Django CSRF protection)
 function getCookie(name) {
-  let cookieValue = null;
+  let cookieValue = null
   if (document.cookie && document.cookie !== '') {
-    const cookies = document.cookie.split(';');
+    const cookies = document.cookie.split(';')
     for (let i = 0; i < cookies.length; i++) {
-      const cookie = cookies[i].trim();
-      if (cookie.substring(0, name.length + 1) === (name + '=')) {
-        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-        break;
+      const cookie = cookies[i].trim()
+      if (cookie.substring(0, name.length + 1) === name + '=') {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+        break
       }
     }
   }
-  return cookieValue;
+  return cookieValue
 }
 
 // Branch locations
@@ -96,24 +95,24 @@ const branches = [
     address: 'Nacha Plaza, 3rd Floor, P.O. Box 13098-20100',
     phone: '+254 725 396 801',
     email: 'wakafreight@gmail.com',
-    map: 'https://maps.google.com/maps?q=Nacha+Plaza+Nakuru&output=embed'
+    map: 'https://maps.google.com/maps?q=Nacha+Plaza+Nakuru&output=embed',
   },
   {
     city: 'Nairobi',
     address: 'ICD Embakasi, Nairobi, P.O. Box 70343-00400',
     phone: '+254 722 123 456',
     email: 'wakafreight@gmail.com',
-    map: 'https://maps.google.com/maps?q=ICD+Embakasi+Nairobi&output=embed'
+    map: 'https://maps.google.com/maps?q=ICD+Embakasi+Nairobi&output=embed',
   },
-];
+]
 
 // Operational hours
 const operationalHours = [
   { day: 'Monday - Friday', hours: '8:00 AM - 5:00 PM' },
   { day: 'Saturday', hours: 'Closed' },
   { day: 'Sunday', hours: 'Closed' },
-  { day: 'Emergency', hours: '24/7 Support Available' }
-];
+  { day: 'Emergency', hours: '24/7 Support Available' },
+]
 </script>
 
 <template>
@@ -122,7 +121,7 @@ const operationalHours = [
   <!-- Hero Section -->
   <div class="relative h-[22vh] min-h-[200px] lg:h-[40vh] bg-blue-900 text-white pt-32 pb-22">
     <div class="absolute inset-0 bg-black/60 z-0">
-      <img src="@/assets/images/services/contact.jpg" alt="Happy clients" class="w-full h-full object-cover">
+      <img src="@/assets/images/services/contact.jpg" alt="Happy clients" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-black/60"></div>
     </div>
   </div>
@@ -153,7 +152,7 @@ const operationalHours = [
                 <div class="relative">
                   <i class="fas fa-user absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                   <input type="text" id="name" v-model="formData.name" placeholder="John Doe" required
-                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
                 </div>
               </div>
 
@@ -163,7 +162,7 @@ const operationalHours = [
                 <div class="relative">
                   <i class="fas fa-envelope absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                   <input type="email" id="email" v-model="formData.email" placeholder="your@email.com" required
-                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
                 </div>
               </div>
 
@@ -173,7 +172,7 @@ const operationalHours = [
                 <div class="relative">
                   <i class="fas fa-phone-alt absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                   <input type="tel" id="phone" v-model="formData.phone" placeholder="+254 700 000 000"
-                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all">
+                    class="pl-10 w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all" />
                 </div>
               </div>
 
@@ -206,9 +205,7 @@ const operationalHours = [
               <span v-if="isSubmitting">
                 <i class="fas fa-spinner fa-spin mr-2"></i> Sending...
               </span>
-              <span v-else>
-                <i class="fas fa-paper-plane mr-2"></i> Send Inquiry
-              </span>
+              <span v-else> <i class="fas fa-paper-plane mr-2"></i> Send Inquiry </span>
             </button>
           </form>
         </div>
@@ -230,7 +227,7 @@ const operationalHours = [
                 <h3 class="text-lg font-semibold text-blue-800 mb-2">{{ branch.city }} Office</h3>
 
                 <!-- Map -->
-                <div class="rounded-xl overflow-hidden shadow-md mb-3" style="aspect-ratio: 16/9;">
+                <div class="rounded-xl overflow-hidden shadow-md mb-3" style="aspect-ratio: 16/9">
                   <iframe :src="branch.map" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
                 </div>
 
@@ -242,11 +239,15 @@ const operationalHours = [
                   </div>
                   <div class="flex items-center">
                     <i class="fas fa-phone-alt text-blue-500 mr-3"></i>
-                    <a :href="`tel:${branch.phone}`" class="text-gray-700 hover:text-blue-600">{{ branch.phone }}</a>
+                    <a :href="`tel:${branch.phone}`" class="text-gray-700 hover:text-blue-600">{{
+                      branch.phone
+                    }}</a>
                   </div>
                   <div class="flex items-center">
                     <i class="fas fa-envelope text-blue-500 mr-3"></i>
-                    <a :href="`mailto:${branch.email}`" class="text-gray-700 hover:text-blue-600">{{ branch.email }}</a>
+                    <a :href="`mailto:${branch.email}`" class="text-gray-700 hover:text-blue-600">{{
+                      branch.email
+                    }}</a>
                   </div>
                 </div>
               </div>
@@ -289,8 +290,10 @@ const operationalHours = [
             </div>
             <div>
               <h3 class="text-lg font-bold text-red-800 mb-2">Urgent Shipment Issues?</h3>
-              <p class="text-red-700 mb-3">For immediate assistance with delayed shipments, customs hold, or other
-                urgent matters:</p>
+              <p class="text-red-700 mb-3">
+                For immediate assistance with delayed shipments, customs hold, or other urgent
+                matters:
+              </p>
               <a href="tel:+254711223344"
                 class="inline-flex items-center bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
                 <i class="fas fa-phone-alt mr-2"></i> Call Emergency Line

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import TheNavbar from '@/components/TheNavbar.vue'
@@ -10,7 +10,7 @@ import manager from '@/assets/images/team/Derrick2.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Core company data
+// Core company data - now as computed or static
 const companyData = {
   founded: 1999,
   incorporated: 2011,
@@ -21,39 +21,39 @@ const companyData = {
       title: 'Air Freight',
       icon: 'plane',
       description: 'Time-sensitive global air cargo solutions with customs clearance',
-      color: 'from-blue-500 to-blue-600'
+      color: 'from-blue-500 to-blue-600',
     },
     {
       title: 'Sea Freight',
       icon: 'ship',
       description: 'Cost-effective ocean shipping with port-to-door logistics',
-      color: 'from-cyan-500 to-cyan-600'
+      color: 'from-cyan-500 to-cyan-600',
     },
     {
       title: 'Cross-Border',
       icon: 'truck',
       description: 'Efficient land freight across East African borders',
-      color: 'from-emerald-500 to-emerald-600'
+      color: 'from-emerald-500 to-emerald-600',
     },
     {
       title: 'Customs Clearance',
       icon: 'file-contract',
       description: 'Expert documentation and tax compliance services',
-      color: 'from-purple-500 to-purple-600'
+      color: 'from-purple-500 to-purple-600',
     },
     {
       title: 'Warehousing',
       icon: 'warehouse',
       description: 'Secure storage with inventory management solutions',
-      color: 'from-amber-500 to-amber-600'
+      color: 'from-amber-500 to-amber-600',
     },
     {
       title: 'Vehicle Import',
       icon: 'car',
       description: 'End-to-end vehicle importation services',
-      color: 'from-red-500 to-red-600'
-    }
-  ]
+      color: 'from-red-500 to-red-600',
+    },
+  ],
 }
 
 // Leadership team
@@ -62,110 +62,128 @@ const leadership = [
     name: 'Julius Waka',
     position: 'Managing Director & CEO',
     bio: '25+ years in logistics industry, established WakaFreight to revolutionize East African freight solutions.',
-    image: ceo
+    image: ceo,
   },
   {
     name: 'Gladys Omondi',
     position: 'Operations Director',
     bio: 'Specializes in customs regulations and cross-border logistics with 15 years experience.',
-    image: md
+    image: md,
   },
   {
     name: 'Derrick John',
     position: 'Manager',
     bio: 'Financial strategist ensuring cost-effective solutions for our clients.',
-    image: manager
-  }
+    image: manager,
+  },
 ]
 
-// Milestones
-const milestones = ref([
+// Milestones - now as simple array
+const milestones = [
   { year: 1999, event: 'Began operations under Dalexy Freighters license' },
   { year: 2011, event: 'Officially incorporated as WakaFreight Forwarders Limited' },
   { year: 2015, event: 'Opened Nairobi branch at KeMu Towers' },
   { year: 2018, event: 'Expanded to Mombasa port operations' },
   { year: 2021, event: 'Launched 24/7 customer support center' },
-  { year: 2023, event: 'Recognized as Top Customs Agent by KRA' }
-])
+  { year: 2023, event: 'Recognized as Top Customs Agent by KRA' },
+]
 
-// Animated counters
-const counterValues = ref({
-  years: 0,
-  clients: 0,
-  shipments: 0,
-  borders: 0
-})
+// Animated counters - now with separate refs to avoid circular references
+const yearsCounter = ref(0)
+const clientsCounter = ref(0)
+const shipmentsCounter = ref(0)
+const bordersCounter = ref(0)
 
-// Animated floating elements
-const floatingElements = ref([
-  { id: 1, top: '10%', left: '5%', size: 'w-16 h-16', delay: 0 },
-  { id: 2, top: '25%', left: '80%', size: 'w-12 h-12', delay: 0.2 },
-  { id: 3, top: '60%', left: '15%', size: 'w-10 h-10', delay: 0.4 },
-  { id: 4, top: '75%', left: '85%', size: 'w-14 h-14', delay: 0.6 }
-])
+// Store GSAP instances for cleanup
+const animations = {
+  counters: null,
+  scrollTriggers: [],
+  floats: [],
+}
 
 onMounted(() => {
-  // Animate counters
-  const animateCounters = () => {
-    gsap.to(counterValues.value, {
+  // Animate counters without circular references
+  animations.counters = gsap.to(
+    {},
+    {
       years: new Date().getFullYear() - companyData.founded,
       clients: 1500,
       shipments: 25000,
       borders: 12,
       duration: 2.5,
-      ease: "power3.out",
-      stagger: 0.2,
-      onUpdate: () => {
-        counterValues.value = { ...counterValues.value }
-      }
-    })
-  }
+      ease: 'power3.out',
+      onUpdate: function () {
+        yearsCounter.value = Math.floor(this.targets()[0].years)
+        clientsCounter.value = Math.floor(this.targets()[0].clients)
+        shipmentsCounter.value = Math.floor(this.targets()[0].shipments)
+        bordersCounter.value = Math.floor(this.targets()[0].borders)
+      },
+    },
+  )
 
   // Initialize animations on scroll
-  gsap.utils.toArray('.animate-on-scroll').forEach(element => {
-    gsap.from(element, {
+  gsap.utils.toArray('.animate-on-scroll').forEach((element) => {
+    const animation = gsap.from(element, {
       opacity: 0,
       y: 50,
       duration: 1,
-      ease: "power3.out",
+      ease: 'power3.out',
       scrollTrigger: {
         trigger: element,
-        start: "top 80%",
-        toggleActions: "play none none none"
-      }
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+      },
     })
+    animations.scrollTriggers.push(animation.scrollTrigger)
   })
 
-  // Floating elements animation
-  floatingElements.value.forEach(el => {
-    gsap.to(`#floating-${el.id}`, {
+  // Floating elements animation using class instead of IDs
+  const floatElements = gsap.utils.toArray('.floating-element')
+  floatElements.forEach((el, index) => {
+    const anim = gsap.to(el, {
       y: 20,
       duration: 3,
-      delay: el.delay,
+      delay: index * 0.2,
       repeat: -1,
       yoyo: true,
-      ease: "sine.inOut"
+      ease: 'sine.inOut',
     })
+    animations.floats.push(anim)
   })
 
   // Timeline animation
-  gsap.from('.timeline-item', {
-    opacity: 0,
-    x: (index) => index % 2 === 0 ? -50 : 50,
-    duration: 1,
-    stagger: 0.2,
-    scrollTrigger: {
-      trigger: '.timeline-container',
-      start: "top 70%",
-      toggleActions: "play none none none"
-    }
+  const timelineItems = gsap.utils.toArray('.timeline-item')
+  timelineItems.forEach((item, index) => {
+    gsap.from(item, {
+      opacity: 0,
+      x: index % 2 === 0 ? -50 : 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '.timeline-container',
+        start: 'top 70%',
+        toggleActions: 'play none none none',
+      },
+    })
+  })
+})
+
+onUnmounted(() => {
+  // Clean up all GSAP animations
+  if (animations.counters) animations.counters.kill()
+
+  animations.scrollTriggers.forEach((trigger) => {
+    if (trigger) trigger.kill()
   })
 
-  // Start counter animation after 0.5s
-  setTimeout(animateCounters, 500)
+  animations.floats.forEach((anim) => {
+    if (anim) anim.kill()
+  })
+
+  // Clear all ScrollTriggers
+  ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
+  gsap.globalTimeline.clear()
 })
 </script>
-
 <template>
   <TheNavbar />
 
@@ -175,7 +193,7 @@ onMounted(() => {
     <!-- Background with parallax effect -->
     <div class="absolute inset-0 z-0">
       <img src="@/assets/images/background.jpg" alt="Freight containers at port" class="w-full h-full object-cover"
-        data-speed="0.6">
+        data-speed="0.6" />
       <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
     </div>
 
@@ -196,8 +214,8 @@ onMounted(() => {
 
       <p class="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed animate-on-scroll"
         style="animation-delay: 0.4s">
-        Since 1999, WakaFreight has been delivering reliable air, sea and cross-border freight solutions across East
-        Africa and beyond.
+        Since 1999, WakaFreight has been delivering reliable air, sea and cross-border freight
+        solutions across East Africa and beyond.
       </p>
 
       <div class="mt-12 animate-on-scroll" style="animation-delay: 0.6s">
@@ -228,12 +246,12 @@ onMounted(() => {
 
           <div class="prose max-w-none text-gray-600 mb-8 space-y-4">
             <p class="leading-relaxed">
-              Incorporated in 2011 under the Companies Act (Cap. 486 Laws of Kenya), WakaFreight builds on decades of
-              experience in customs agency and freight forwarding.
+              Incorporated in 2011 under the Companies Act (Cap. 486 Laws of Kenya), WakaFreight
+              builds on decades of experience in customs agency and freight forwarding.
             </p>
             <p class="leading-relaxed">
-              From our headquarters in Nakuru's Nacha Plaza to our strategically located branches at ICD Embakasi and
-              major border stations, we've grown into a premier logistics provider.
+              From our headquarters in Nakuru's Nacha Plaza to our strategically located branches at
+              ICD Embakasi and major border stations, we've grown into a premier logistics provider.
             </p>
           </div>
 
@@ -244,10 +262,15 @@ onMounted(() => {
                 {{ value }}{{ key === 'years' ? '+' : '' }}
               </div>
               <div class="text-sm font-medium text-gray-600 uppercase tracking-wider">
-                {{ key === 'years' ? 'Years Experience' :
-                  key === 'clients' ? 'Satisfied Clients' :
-                    key === 'shipments' ? 'Annual Shipments' :
-                      'Border Stations' }}
+                {{
+                  key === 'years'
+                    ? 'Years Experience'
+                    : key === 'clients'
+                      ? 'Satisfied Clients'
+                      : key === 'shipments'
+                        ? 'Annual Shipments'
+                        : 'Border Stations'
+                }}
               </div>
             </div>
           </div>
@@ -256,12 +279,14 @@ onMounted(() => {
         <div class="relative rounded-2xl overflow-hidden shadow-2xl group">
           <div class="aspect-w-16 aspect-h-9 overflow-hidden">
             <img src="@/assets/images/background.jpg" alt="WakaFreight Warehouse"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
           </div>
           <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
           <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
             <h3 class="text-xl font-bold mb-2">Our Nakuru Headquarters</h3>
-            <p class="text-blue-200">Nacha Plaza, 3rd Floor - Where East African logistics excellence begins</p>
+            <p class="text-blue-200">
+              Nacha Plaza, 3rd Floor - Where East African logistics excellence begins
+            </p>
           </div>
         </div>
       </div>
@@ -285,7 +310,7 @@ onMounted(() => {
           style="animation-delay: 0s">
           <div class="h-70 bg-gray-200 overflow-hidden relative w-full">
             <img :src="leadership[0].image" :alt="leadership[0].name"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
             <div
               class="absolute top-4 right-4 bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
@@ -317,7 +342,7 @@ onMounted(() => {
           style="animation-delay: 0.1s">
           <div class="h-70 bg-gray-200 overflow-hidden relative w-full">
             <img :src="leadership[1].image" :alt="leadership[1].name"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
             <div
               class="absolute top-4 right-4 bg-emerald-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
@@ -331,11 +356,11 @@ onMounted(() => {
             </p>
             <p class="text-gray-600 mb-4">{{ leadership[1].bio }}</p>
             <div class="flex space-x-3">
-              <a href="#"
+              <a href="https://www.linkedin.com/company/wakafreight-fowarders-limited/"
                 class="w-8 h-8 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 flex items-center justify-center transition-colors">
                 <i class="fab fa-linkedin-in text-sm"></i>
               </a>
-              <a href="#"
+              <a href="mailto:wakafreight@gmail.com"
                 class="w-8 h-8 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 flex items-center justify-center transition-colors">
                 <i class="fas fa-envelope text-sm"></i>
               </a>
@@ -349,7 +374,7 @@ onMounted(() => {
           style="animation-delay: 0.2s">
           <div class="h-70 bg-gray-200 overflow-hidden relative w-full">
             <img :src="leadership[2].image" :alt="leadership[2].name"
-              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
             <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent"></div>
             <div
               class="absolute top-4 right-4 bg-amber-600 text-white px-3 py-1 rounded-full text-sm font-medium shadow-md">
@@ -362,8 +387,8 @@ onMounted(() => {
               <i class="fas fa-user-tie mr-2"></i> Overall Manager
             </p>
             <p class="text-gray-600 mb-4">
-              Experienced leader skilled in managing teams, optimizing operations, and driving strategic growth to boost
-              efficiency and client satisfaction.
+              Experienced leader skilled in managing teams, optimizing operations, and driving
+              strategic growth to boost efficiency and client satisfaction.
             </p>
             <div class="flex space-x-3">
               <a href="#"
@@ -408,18 +433,20 @@ onMounted(() => {
           {
             icon: 'bullseye',
             title: 'Vision',
-            content: 'To become the leading clearing and forwarding firm in the world, respected for our integrity and quality service delivery.'
+            content:
+              'To become the leading clearing and forwarding firm in the world, respected for our integrity and quality service delivery.',
           },
           {
             icon: 'rocket',
             title: 'Mission',
-            content: 'To provide quality service delivery to all clients while conforming to the highest legal and professional standards.'
+            content:
+              'To provide quality service delivery to all clients while conforming to the highest legal and professional standards.',
           },
           {
             icon: 'gem',
             title: 'Values',
-            content: ['Professionalism', 'Integrity', 'Reliability', 'Customer Focus']
-          }
+            content: ['Professionalism', 'Integrity', 'Reliability', 'Customer Focus'],
+          },
         ]" :key="index"
           class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 animate-on-scroll"
           :style="`animation-delay: ${index * 0.1 + 0.2}s`">
@@ -486,7 +513,7 @@ onMounted(() => {
               {{ service.description }}
             </p>
             <div class="mt-4">
-              <a href="#"
+              <a href="/services"
                 class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium transition-colors">
                 Learn more
                 <i class="fas fa-arrow-right ml-2 text-sm"></i>
@@ -566,9 +593,12 @@ onMounted(() => {
     </div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">Ready to Ship With Confidence?</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 animate-on-scroll">
+        Ready to Ship With Confidence?
+      </h2>
       <p class="text-xl text-blue-200 max-w-3xl mx-auto mb-8 animate-on-scroll" style="animation-delay: 0.2s">
-        Partner with WakaFreight for reliable, efficient logistics solutions tailored to your business needs.
+        Partner with WakaFreight for reliable, efficient logistics solutions tailored to your
+        business needs.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4 animate-on-scroll" style="animation-delay: 0.4s">
         <a href="/contact"
@@ -628,7 +658,9 @@ onMounted(() => {
 /* Custom hover effects */
 .service-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
 /* Smooth transitions */

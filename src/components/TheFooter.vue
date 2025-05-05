@@ -1,17 +1,42 @@
+<script>
+export default {
+  data() {
+    return {
+      socialLinks: [
+        { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: 'https://www.linkedin.com/company/wakafreight-fowarders-limited/' },
+        { name: 'Tiktok', icon: 'fab fa-tiktok', url: 'https://www.tiktok.com/@valary_2030' },
+        { name: 'Facebook', icon: 'fab fa-facebook-f', url: 'https://www.facebook.com' },
+        { name: 'Instagram', icon: 'fab fa-instagram', url: 'https://www.instagram.com' },
+      ],
+      services: [
+        { name: 'Air Freight', path: '/services#services', icon: 'fas fa-plane' },
+        { name: 'Sea Freight', path: '/services#services', icon: 'fas fa-ship' },
+        { name: 'Cross-Border', path: '/services#services', icon: 'fas fa-truck' },
+        { name: 'Customs Clearance', path: '/services#services', icon: 'fas fa-file-contract' },
+        { name: 'Warehousing', path: '/services#services', icon: 'fas fa-warehouse' },
+        { name: 'Vehicle Import', path: '/services#services', icon: 'fas fa-car' },
+      ],
+    }
+  },
+}
+</script>
 <template>
   <footer class="bg-gradient-to-b from-gray-900 to-gray-800 text-white pt-16 pb-8 border-t-2 border-blue-500">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
         <!-- Company Info & Logo -->
-        <div class="space-y-4">
-          <div class="flex items-center space-x-4">
-            <div>
-              <img src="@/assets/images/logos/wakalogo.png" alt="WakaFreight Logo" class="h-34 w-40">
-            </div>
+        <div class="space-y-6">
+          <div class="flex-shrink-0 flex items-center">
+            <a href="/" class="flex items-center group">
+              <!-- Logo -->
+              <div class="flex-shrink-0 flex items-center">
+                <img src="@/assets/images/logos/finalwakalogo.png" alt="Logo" class="h-14 sm:h-15 w-auto" />
+              </div>
+            </a>
           </div>
           <p class="text-gray-300 text-sm leading-relaxed">
-            Your trusted partner for air, sea and cross-border freight forwarding in East Africa since 1999.
-            Licensed customs agents with 12 border stations across the region.
+            Your trusted partner for air, sea and cross-border freight forwarding in East Africa
+            since 1999. Licensed customs agents with 12 border stations across the region.
           </p>
           <div class="flex space-x-4">
             <a v-for="social in socialLinks" :key="social.name" :href="social.url" target="_blank"
@@ -56,7 +81,9 @@
               </div>
               <div>
                 <h4 class="text-sm font-semibold text-blue-300">Head Office</h4>
-                <p class="text-gray-300 text-sm">Nacha Plaza, 3rd Floor<br>P.O. Box 13098-20100, Nakuru</p>
+                <p class="text-gray-300 text-sm">
+                  Nacha Plaza, 3rd Floor<br />P.O. Box 13098-20100, Nakuru
+                </p>
               </div>
             </li>
             <li class="flex items-start">
@@ -66,7 +93,7 @@
               </div>
               <div>
                 <h4 class="text-sm font-semibold text-blue-300">Nairobi Office</h4>
-                <p class="text-gray-300 text-sm">ICD Embakasi<br>P.O. Box 70343-00400, Nairobi</p>
+                <p class="text-gray-300 text-sm">ICD Embakasi<br />P.O. Box 70343-00400, Nairobi</p>
               </div>
             </li>
             <li class="flex items-center">
@@ -105,7 +132,7 @@
           </p>
           <form class="space-y-3">
             <input type="email" placeholder="Your business email"
-              class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400 text-sm">
+              class="w-full px-4 py-3 rounded-lg bg-gray-700 border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white placeholder-gray-400 text-sm" />
             <button type="submit"
               class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold py-3 px-4 rounded-lg shadow transition-all duration-300 flex items-center justify-center">
               <i class="fas fa-paper-plane mr-2"></i>
@@ -166,29 +193,6 @@
   </footer>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      socialLinks: [
-        { name: 'LinkedIn', icon: 'fab fa-linkedin-in', url: '#' },
-        { name: 'Tiktok', icon: 'fab fa-tiktok', url: '#' },
-        { name: 'Facebook', icon: 'fab fa-facebook-f', url: '#' },
-        { name: 'Instagram', icon: 'fab fa-instagram', url: '#' }
-      ],
-      services: [
-        { name: 'Air Freight', path: '/services#services', icon: 'fas fa-plane' },
-        { name: 'Sea Freight', path: '/services#services', icon: 'fas fa-ship' },
-        { name: 'Cross-Border', path: '/services#services', icon: 'fas fa-truck' },
-        { name: 'Customs Clearance', path: '/services#services', icon: 'fas fa-file-contract' },
-        { name: 'Warehousing', path: '/services#services', icon: 'fas fa-warehouse' },
-        { name: 'Vehicle Import', path: '/services#services', icon: 'fas fa-car' }
-      ]
-    }
-  }
-}
-</script>
-
 <style scoped>
 footer {
   background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
@@ -215,11 +219,11 @@ input:focus {
 }
 
 /* Glow effect for submit button */
-button[type="submit"] {
+button[type='submit'] {
   box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
 }
 
-button[type="submit"]:hover {
+button[type='submit']:hover {
   box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 

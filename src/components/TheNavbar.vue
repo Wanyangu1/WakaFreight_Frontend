@@ -1,38 +1,38 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from 'vue'
 
-const isNavbarCollapsed = ref(true);
-const isScrolled = ref(false);
-const isMobile = ref(false);
-const activeDropdown = ref(null);
+const isNavbarCollapsed = ref(true)
+const isScrolled = ref(false)
+const isMobile = ref(false)
+const activeDropdown = ref(null)
 
 // Properly defined reactive contactInfo
 const contactInfo = ref({
   phone: '+254 725 396 801',
   email: 'wakafreight@gmail.com',
-  address: 'Nacha Plaza, Nakuru'
-});
+  address: 'Nacha Plaza, Nakuru',
+})
 
 const topBarLinks = [
   {
     name: 'Careers',
     icon: 'fas fa-briefcase',
     path: '/careers',
-    badge: 'updated'
+    badge: 'Careers',
   },
   {
     name: 'Customer Support',
     icon: 'fas fa-user',
     path: '/contact',
-    badge: 'Secure'
-  }
-];
+    badge: 'Secure',
+  },
+]
 
 const navLinks = [
   {
     name: 'About Us',
     path: '/about',
-    icon: 'fas fa-building'
+    icon: 'fas fa-building',
   },
   {
     name: 'Services',
@@ -43,27 +43,27 @@ const navLinks = [
         name: 'Air Freight',
         path: '/services#services',
         icon: 'fas fa-plane-departure',
-        description: 'Express global air cargo solutions'
+        description: 'Express global air cargo solutions',
       },
       {
         name: 'Sea Freight',
         path: '/services#services',
         icon: 'fas fa-ship',
-        description: 'Cost-effective ocean shipping'
+        description: 'Cost-effective ocean shipping',
       },
       {
         name: 'Cross-Border',
         path: '/services#services',
         icon: 'fas fa-truck-moving',
-        description: 'Seamless regional logistics'
+        description: 'Seamless regional logistics',
       },
       {
         name: 'Customs Clearance',
         path: '/services#services',
         icon: 'fas fa-file-signature',
-        description: 'Expert documentation handling'
-      }
-    ]
+        description: 'Expert documentation handling',
+      },
+    ],
   },
   {
     name: 'Industries',
@@ -73,55 +73,56 @@ const navLinks = [
       { name: 'Pharmaceutical', path: '#industries', icon: 'fas fa-pills' },
       { name: 'Manufacturing', path: '#industries', icon: 'fas fa-cogs' },
       { name: 'Agriculture', path: '#industries', icon: 'fas fa-tractor' },
-      { name: 'Retail', path: '#industries', icon: 'fas fa-shopping-basket' }
-    ]
+      { name: 'Retail', path: '#industries', icon: 'fas fa-shopping-basket' },
+    ],
   },
   {
     name: 'Our Clients',
     path: '/clients',
-    icon: 'fas fa-users'
+    icon: 'fas fa-users',
   },
-];
+]
 
 const toggleDropdown = (index) => {
-  activeDropdown.value = activeDropdown.value === index ? null : index;
-};
+  activeDropdown.value = activeDropdown.value === index ? null : index
+}
 
 const handleScroll = () => {
-  isScrolled.value = window.scrollY > 10;
-};
+  isScrolled.value = window.scrollY > 10
+}
 
 const checkScreenSize = () => {
-  isMobile.value = window.innerWidth < 1024;
+  isMobile.value = window.innerWidth < 1024
   if (!isMobile.value) {
-    isNavbarCollapsed.value = true;
+    isNavbarCollapsed.value = true
   }
-};
+}
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  window.addEventListener('resize', checkScreenSize);
-  checkScreenSize();
-});
+  window.addEventListener('scroll', handleScroll)
+  window.addEventListener('resize', checkScreenSize)
+  checkScreenSize()
+})
 
 onUnmounted(() => {
-  window.removeEventListener('scroll', handleScroll);
-  window.removeEventListener('resize', checkScreenSize);
-});
+  window.removeEventListener('scroll', handleScroll)
+  window.removeEventListener('resize', checkScreenSize)
+})
 </script>
 
 <template>
   <!-- Top Utility Bar -->
-  <div class="bg-gradient-to-r from-blue-900 to-blue-800 text-white text-xs sm:text-sm border-b border-blue-700/50">
+  <div
+    class="bg-gradient-to-r from-blue-900 to-blue-800 h-10 sm:h-10 text-white text-xs sm:text-sm border-b border-blue-700/50">
     <div class="container mx-auto px-3 sm:px-4 py-1 sm:py-2 flex flex-row justify-between items-center flex-wrap">
       <!-- Quick Links -->
-      <div class="flex items-center space-x-3 sm:space-x-6">
+      <div class="flex items-center space-x-5 sm:space-x-6">
         <div class="flex items-center group">
           <div
             class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-blue-600/50 transition-colors">
             <i class="fas fa-clock text-blue-300 text-xs sm:text-sm"></i>
           </div>
-          <span class="xs:inline">Mon-Fri: 8AM-5PM</span>
+          <span class="xs:inline text-sm">Mon-Fri: 8AM-5PM</span>
         </div>
         <div class="hidden sm:flex items-center group">
           <div
@@ -138,7 +139,7 @@ onUnmounted(() => {
           class="flex items-center group transition-all duration-200">
           <div class="relative">
             <div
-              class="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-blue-600/50 transition-colors">
+              class="w-6 h-6 mr-1 sm:w-8 sm:h-8 rounded-lg bg-blue-700/30 border border-blue-500/30 flex items-center justify-center mr-1 sm:mr-2 group-hover:bg-blue-600/50 transition-colors">
               <i :class="`${link.icon} text-blue-300 text-xs sm:text-sm`"></i>
             </div>
             <span v-if="link.badge"
@@ -149,15 +150,15 @@ onUnmounted(() => {
           <span class="hidden sm:inline group-hover:text-blue-300">{{ link.name }}</span>
         </a>
         <div class="hidden sm:flex items-center space-x-1 sm:space-x-3 ml-2 sm:ml-4">
-          <a href="#"
+          <a href="https://www.linkedin.com/company/wakafreight-fowarders-limited/"
             class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
             <i class="fab fa-linkedin-in text-xs sm:text-sm"></i>
           </a>
-          <a href="#"
+          <a href="https://www.tiktok.com/@valary_2030"
             class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
             <i class="fab fa-tiktok text-xs sm:text-sm"></i>
           </a>
-          <a href="#"
+          <a href="https://www.facebook.com"
             class="w-6 h-6 sm:w-8 sm:h-8 rounded-full bg-blue-700/30 border border-blue-500/30 flex items-center justify-center text-white hover:bg-blue-600/50 hover:text-blue-300 transition-colors">
             <i class="fab fa-facebook-f text-xs sm:text-sm"></i>
           </a>
@@ -167,32 +168,18 @@ onUnmounted(() => {
   </div>
 
   <!-- Main Navigation -->
-  <nav class="sticky top-0 z-50 transition-all duration-300"
-    :class="isScrolled ? 'bg-gray-50 shadow-lg py-0 border-b border-gray-100' : 'bg-white/95 backdrop-blur-sm py-1 sm:py-2 border-b border-white/20'">
+  <nav class="sticky top-0 z-50 transition-all duration-300" :class="isScrolled
+    ? 'bg-gray-50 shadow-lg py-0 border-b border-gray-100'
+    : 'bg-white/95 backdrop-blur-sm py-1 sm:py-2 border-b border-white/20'
+    ">
     <div class="max-w-7xl mx-auto px-2 sm:px-4">
-      <div class="flex justify-between items-center h-10 sm:h-14">
-        <!-- Logo -->
-        <div class="flex-shrink-0 flex items-center">
-          <a href="/" class="flex items-center group">
-            <div class="relative">
-              <div
-                class="flex items-center justify-center w-9 h-9 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-blue-600 to-blue-800 text-white transform group-hover:rotate-6 transition-transform duration-300">
-                <i class="fas fa-shipping-fast text-xl sm:text-2xl"></i>
-              </div>
-              <div
-                class="absolute -bottom-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 rounded-full bg-green-400 border-2 border-white flex items-center justify-center">
-                <i class="fas fa-check text-white text-[10px] sm:text-xs"></i>
-              </div>
-            </div>
-            <div class="ml-2 sm:ml-3">
-              <h1 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-blue-700 transition-colors">
-                WakaFreight
-              </h1>
-              <p class="text-[10px] sm:text-xs text-gray-500 -mt-1">FORWARDERS LIMITED</p>
-            </div>
-          </a>
-        </div>
-
+      <div class="flex justify-between items-center h-14 sm:h-14">
+        <a href="/" class="flex items-center group">
+          <!-- Logo -->
+          <div class="flex-shrink-0 flex items-center">
+            <img src="@/assets/images/logos/finalwakalogo.png" alt="Logo" class="h-14 sm:h-15 w-auto" />
+          </div>
+        </a>
 
         <!-- Desktop Navigation -->
         <div class="hidden lg:flex items-center space-x-1">
@@ -203,7 +190,7 @@ onUnmounted(() => {
               class="flex items-center px-4 py-6 text-gray-700 hover:text-blue-600 transition-colors font-medium group h-full"
               :class="{
                 'text-blue-600': activeDropdown === index,
-                'border-b-2 border-transparent hover:border-blue-500': !link.dropdown
+                'border-b-2 border-transparent hover:border-blue-500': !link.dropdown,
               }">
               <div class="relative">
                 <div
@@ -293,10 +280,10 @@ onUnmounted(() => {
         <div class="space-y-0.5">
           <a v-for="(link, index) in navLinks" :key="index" :href="link.path"
             class="flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors"
-            @click="!link.dropdown ? isNavbarCollapsed = true : null">
+            @click="!link.dropdown ? (isNavbarCollapsed = true) : null">
             <div class="flex items-center">
               <div
-                class="w-6 h-6 rounded-md bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-600 mr-2">
+                class="w-6 h-6 rounded-md bg-blue-100 border border-blue-200 flex items-center justify-center text-blue-60 mr-4">
                 <i :class="`${link.icon} text-xs`"></i>
               </div>
               <span class="text-sm">{{ link.name }}</span>

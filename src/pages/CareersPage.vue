@@ -1,61 +1,62 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import TheNavbar from '@/components/TheNavbar.vue';
-import TheFooter from '@/components/TheFooter.vue';
+import { ref, onMounted } from 'vue'
+import TheNavbar from '@/components/TheNavbar.vue'
+import TheFooter from '@/components/TheFooter.vue'
 
-const jobOpenings = ref([]);
-const isLoading = ref(true);
-const error = ref(null);
-const activeJob = ref(null);
+const jobOpenings = ref([])
+const isLoading = ref(true)
+const error = ref(null)
+const activeJob = ref(null)
 
 // Fetch jobs from API
 const fetchJobs = async () => {
   try {
-    isLoading.value = true;
-    const response = await fetch('http://localhost:8000/api/jobs/');
+    isLoading.value = true
+    const response = await fetch('https://backend.wakafreightfowardersltd.co.ke/api/jobs/')
     if (!response.ok) {
-      throw new Error('Failed to fetch job openings');
+      throw new Error('Failed to fetch job openings')
     }
-    jobOpenings.value = await response.json();
+    jobOpenings.value = await response.json()
   } catch (err) {
-    error.value = err.message;
-    console.error('Error fetching jobs:', err);
+    error.value = err.message
+    console.error('Error fetching jobs:', err)
   } finally {
-    isLoading.value = false;
+    isLoading.value = false
   }
-};
+}
 
 onMounted(() => {
-  fetchJobs();
-});
+  fetchJobs()
+})
 
 // Attachment program details
 const internshipProgram = {
   title: '3-Month Professional Attachment',
-  description: 'Gain hands-on experience in the logistics industry through our structured internship program.',
+  description:
+    'Gain hands-on experience in the logistics industry through our structured internship program.',
   benefits: [
     'Real-world experience in freight forwarding',
     'Mentorship from industry professionals',
     'Exposure to air, sea and land logistics',
-    'Potential for full-time employment'
+    'Potential for full-time employment',
   ],
   requirements: [
     'Currently enrolled in or recent graduate of a logistics-related program',
     'Strong academic record',
     'Excellent communication skills',
-    'Willingness to learn'
+    'Willingness to learn',
   ],
-  applicationProcess: 'Submit your documents via email to careers@wakafreight.com'
-};
+  applicationProcess: 'Submit your documents via email to wakafreight@gmail.com',
+}
 
 const toggleJobDetails = (jobId) => {
-  activeJob.value = activeJob.value === jobId ? null : jobId;
-};
+  activeJob.value = activeJob.value === jobId ? null : jobId
+}
 
 const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('en-US', options);
-};
+  const options = { year: 'numeric', month: 'long', day: 'numeric' }
+  return new Date(dateString).toLocaleDateString('en-US', options)
+}
 </script>
 
 <template>
@@ -66,7 +67,7 @@ const formatDate = (dateString) => {
     <div class="absolute inset-0 bg-black/40 z-0"></div>
     <div class="absolute inset-0 z-0">
       <img src="@/assets/images/services/careers.jpg" alt="Freight containers at port"
-        class="w-full h-full object-cover" data-speed="0.6">
+        class="w-full h-full object-cover" data-speed="0.6" />
       <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-blue-800/60"></div>
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -74,8 +75,8 @@ const formatDate = (dateString) => {
         <h1 class="text-4xl md:text-5xl font-bold mb-6">Build Your Career in Logistics</h1>
         <div class="w-24 h-1 bg-blue-400 mx-auto mb-8"></div>
         <p class="text-xl md:text-2xl text-blue-100 max-w-4xl mx-auto leading-relaxed">
-          Join East Africa's leading freight forwarding company and grow with a team that values professionalism and
-          innovation.
+          Join East Africa's leading freight forwarding company and grow with a team that values
+          professionalism and innovation.
         </p>
       </div>
     </div>
@@ -166,8 +167,9 @@ const formatDate = (dateString) => {
                     <h4 class="text-lg font-semibold text-blue-800 mb-4">How to Apply</h4>
                     <p class="text-gray-700 mb-4">
                       To apply for this position, please email the following documents to
-                      <a href="mailto:careers@wakafreight.com"
-                        class="text-blue-600 font-medium hover:underline">careers@wakafreight.com</a>:
+                      <a href="mailto:
+wakafreight@gmail.com" class="text-blue-600 font-medium hover:underline">
+                        wakafreight@gmail.com</a>:
                     </p>
                     <ul class="space-y-2 mb-6">
                       <li class="flex items-start">
@@ -184,7 +186,8 @@ const formatDate = (dateString) => {
                       </li>
                     </ul>
                     <p class="text-sm text-gray-500">
-                      Use the job title as the email subject. Only shortlisted candidates will be contacted.
+                      Use the job title as the email subject. Only shortlisted candidates will be
+                      contacted.
                     </p>
                     <button
                       class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
@@ -204,8 +207,8 @@ const formatDate = (dateString) => {
           </div>
           <h3 class="text-xl font-semibold text-gray-900 mb-2">No Current Openings</h3>
           <p class="text-gray-600 max-w-md mx-auto">
-            We don't have any open positions at the moment, but check back later or consider our attachment program
-            below.
+            We don't have any open positions at the moment, but check back later or consider our
+            attachment program below.
           </p>
         </div>
       </div>
@@ -257,8 +260,9 @@ const formatDate = (dateString) => {
                 <h5 class="font-medium text-gray-900 mb-2">How to Apply:</h5>
                 <p class="text-gray-600 mb-4">
                   Email the following documents to
-                  <a href="mailto:careers@wakafreight.com"
-                    class="text-blue-600 font-medium hover:underline">careers@wakafreight.com</a>
+                  <a href="mailto:
+wakafreight@gmail.com" class="text-blue-600 font-medium hover:underline">
+                    wakafreight@gmail.com</a>
                   with subject "Attachment Application":
                 </p>
                 <ul class="space-y-2 mb-6">
@@ -283,7 +287,8 @@ const formatDate = (dateString) => {
                 <div class="bg-blue-100 border border-blue-200 rounded-lg p-4">
                   <p class="text-blue-800 text-sm">
                     <i class="fas fa-info-circle mr-2"></i>
-                    Applications are accepted year-round. Intakes occur quarterly in January, April, July, and October.
+                    Applications are accepted year-round. Intakes occur quarterly in January, April,
+                    July, and October.
                   </p>
                 </div>
                 <button
@@ -314,7 +319,8 @@ const formatDate = (dateString) => {
           </div>
           <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Career Growth</h3>
           <p class="text-gray-600 text-center">
-            Structured career paths with training programs to help you advance in the logistics industry.
+            Structured career paths with training programs to help you advance in the logistics
+            industry.
           </p>
         </div>
 
@@ -325,7 +331,8 @@ const formatDate = (dateString) => {
           </div>
           <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Regional Exposure</h3>
           <p class="text-gray-600 text-center">
-            Work with clients and partners across East Africa and gain valuable international experience.
+            Work with clients and partners across East Africa and gain valuable international
+            experience.
           </p>
         </div>
 
@@ -336,7 +343,8 @@ const formatDate = (dateString) => {
           </div>
           <h3 class="text-xl font-bold text-center text-gray-900 mb-3">Team Culture</h3>
           <p class="text-gray-600 text-center">
-            Collaborative environment that values innovation, integrity, and professional development.
+            Collaborative environment that values innovation, integrity, and professional
+            development.
           </p>
         </div>
       </div>
@@ -346,16 +354,20 @@ const formatDate = (dateString) => {
   <!-- CTA Section -->
   <section class="py-16 md:py-24 bg-gradient-to-r from-blue-800 to-blue-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-6">Have Questions About Careers at WakaFreight?</h2>
+      <h2 class="text-3xl md:text-4xl font-bold mb-6">
+        Have Questions About Careers at WakaFreight?
+      </h2>
       <p class="text-xl text-blue-200 max-w-3xl mx-auto mb-8">
-        Our HR team is ready to assist you with any inquiries about job opportunities or the attachment program.
+        Our HR team is ready to assist you with any inquiries about job opportunities or the
+        attachment program.
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
-        <a href="mailto:hr@wakafreight.com"
+        <a href="mailto:
+wakafreight@gmail.com"
           class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors hover:shadow-xl">
           <i class="fas fa-envelope mr-2"></i> Email HR
         </a>
-        <a href="tel:+254700000000"
+        <a href="tel:+254 725 396 801"
           class="bg-transparent border-2 border-white hover:bg-white/10 font-bold py-3 px-8 rounded-lg transition-colors">
           <i class="fas fa-phone-alt mr-2"></i> Call Us
         </a>
