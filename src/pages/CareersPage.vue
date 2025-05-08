@@ -46,7 +46,7 @@ const internshipProgram = {
     'Excellent communication skills',
     'Willingness to learn',
   ],
-  applicationProcess: 'Submit your documents via email to wakafreight@gmail.com',
+  applicationProcess: 'Submit your documents via email to info@wakafreightforwadersltd.co.ke',
 }
 
 const toggleJobDetails = (jobId) => {
@@ -168,8 +168,9 @@ const formatDate = (dateString) => {
                     <p class="text-gray-700 mb-4">
                       To apply for this position, please email the following documents to
                       <a href="mailto:
-wakafreight@gmail.com" class="text-blue-600 font-medium hover:underline">
-                        wakafreight@gmail.com</a>:
+info@wakafreightforwadersltd.co.ke" class="text-blue-600 font-medium hover:underline">
+                        info@wakafreightforwadersltd.co.ke</a>:
+
                     </p>
                     <ul class="space-y-2 mb-6">
                       <li class="flex items-start">
@@ -261,8 +262,8 @@ wakafreight@gmail.com" class="text-blue-600 font-medium hover:underline">
                 <p class="text-gray-600 mb-4">
                   Email the following documents to
                   <a href="mailto:
-wakafreight@gmail.com" class="text-blue-600 font-medium hover:underline">
-                    wakafreight@gmail.com</a>
+info@wakafreightforwadersltd.co.ke" class="text-blue-600 font-medium hover:underline">
+                    info@wakafreightforwadersltd.co.ke</a>
                   with subject "Attachment Application":
                 </p>
                 <ul class="space-y-2 mb-6">
@@ -363,7 +364,7 @@ wakafreight@gmail.com" class="text-blue-600 font-medium hover:underline">
       </p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
         <a href="mailto:
-wakafreight@gmail.com"
+info@wakafreightforwadersltd.co.ke"
           class="bg-white text-blue-800 hover:bg-gray-100 font-bold py-3 px-8 rounded-lg shadow-lg transition-colors hover:shadow-xl">
           <i class="fas fa-envelope mr-2"></i> Email HR
         </a>

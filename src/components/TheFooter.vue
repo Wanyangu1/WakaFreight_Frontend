@@ -186,8 +186,10 @@ export default {
         </div>
 
         <div class="text-sm text-gray-500">
-          <span>Reg. No. CPR/2011/12345</span>
+          <span>Designed by <a href="https://acw-portfolio.afroartsafary.com/" class="text-blue-500 hover:underline">ACW
+              Developers</a></span>
         </div>
+
       </div>
     </div>
   </footer>

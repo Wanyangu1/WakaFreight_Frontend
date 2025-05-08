@@ -63,18 +63,21 @@ const leadership = [
     position: 'Managing Director & CEO',
     bio: '25+ years in logistics industry, established WakaFreight to revolutionize East African freight solutions.',
     image: ceo,
+    linkedin: 'https://www.linkedin.com/in/julius-waka-4463a16b' // Add LinkedIn URL
   },
   {
     name: 'Gladys Omondi',
     position: 'Operations Director',
     bio: 'Specializes in customs regulations and cross-border logistics with 15 years experience.',
     image: md,
+    linkedin: 'https://www.linkedin.com/company/wakafreight-fowarders-limited/' // Add LinkedIn URL
   },
   {
     name: 'Derrick John',
     position: 'Manager',
     bio: 'Financial strategist ensuring cost-effective solutions for our clients.',
     image: manager,
+    linkedin: 'https://www.linkedin.com/in/derrick-john-05300019b' // Add LinkedIn URL
   },
 ]
 
@@ -324,7 +327,7 @@ onUnmounted(() => {
             </p>
             <p class="text-gray-600 mb-4">{{ leadership[0].bio }}</p>
             <div class="flex space-x-3">
-              <a href="#"
+              <a :href="leadership[0].linkedin"
                 class="w-8 h-8 rounded-full bg-blue-100 hover:bg-blue-200 text-blue-600 flex items-center justify-center transition-colors">
                 <i class="fab fa-linkedin-in text-sm"></i>
               </a>
@@ -356,7 +359,7 @@ onUnmounted(() => {
             </p>
             <p class="text-gray-600 mb-4">{{ leadership[1].bio }}</p>
             <div class="flex space-x-3">
-              <a href="https://www.linkedin.com/company/wakafreight-fowarders-limited/"
+              <a :href="leadership[1].linkedin"
                 class="w-8 h-8 rounded-full bg-emerald-100 hover:bg-emerald-200 text-emerald-600 flex items-center justify-center transition-colors">
                 <i class="fab fa-linkedin-in text-sm"></i>
               </a>
@@ -391,7 +394,7 @@ onUnmounted(() => {
               strategic growth to boost efficiency and client satisfaction.
             </p>
             <div class="flex space-x-3">
-              <a href="#"
+              <a :href="leadership[2].linkedin"
                 class="w-8 h-8 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-600 flex items-center justify-center transition-colors">
                 <i class="fab fa-linkedin-in text-sm"></i>
               </a>
